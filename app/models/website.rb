@@ -1,0 +1,22 @@
+class Website < ActiveRecord::Base
+
+  VALID_VALUES = [0, 1, 2, 3, 4, 5]
+
+  attr_accessible :failed_tries, :minute, :name, :successful_tries, :summary, :url, :user_id
+
+  before_validation :set_minute
+  validates :minute, :inclusion => { :in => VALID_VALUES,
+    :message => "%{value} is not a valid size" }
+  validates :minute, :presence => true
+
+  belongs_to :user
+
+  has_many :pings
+
+protected
+  def set_minute
+    self.minute = VALID_VALUES.sample
+  end
+
+
+end

@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Url:</b>
+  <%= @website.url %>
+</p>
+
+<p>
+  <b>Minute:</b>
+  <%= @website.minute %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%= @website.name %>
+</p>
+
+<p>
+  <b>Summary:</b>
+  <%= @website.summary %>
+</p>
+
+<p>
+  <b>Failed tries:</b>
+  <%= @website.failed_tries %>
+</p>
+
+<p>
+  <b>Successful tries:</b>
+  <%= @website.successful_tries %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%= @website.user_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_website_path(@website) %> |
+<%= link_to 'Back', websites_path %>
