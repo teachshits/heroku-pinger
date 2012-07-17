@@ -12,6 +12,8 @@ class User < ActiveRecord::Base
       end
     end
   end
+  
+  validates :name, :presence => true
 
   has_many :websites
 
