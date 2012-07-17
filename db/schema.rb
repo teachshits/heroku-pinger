@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120716203953) do
+ActiveRecord::Schema.define(:version => 20120716215050) do
 
   create_table "pings", :force => true do |t|
     t.integer  "status"
@@ -32,12 +32,12 @@ ActiveRecord::Schema.define(:version => 20120716203953) do
 
   create_table "websites", :force => true do |t|
     t.string   "url"
-    t.integer  "minute"
+    t.integer  "minute",           :null => false
     t.string   "name"
     t.text     "summary"
     t.integer  "failed_tries"
     t.integer  "successful_tries"
-    t.integer  "user_id"
+    t.integer  "user_id",          :null => false
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
   end

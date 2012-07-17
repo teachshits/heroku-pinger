@@ -16,7 +16,7 @@
 
 # Ignore emacs backup files
 *~
-gmail
+env_vars
 notes.*txt
 tree*txt
 #- EOF

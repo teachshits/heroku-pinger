@@ -8,6 +8,9 @@ class Website < ActiveRecord::Base
   validates :minute, :inclusion => { :in => VALID_VALUES,
     :message => "%{value} is not a valid size" }
   validates :minute, :presence => true
+  validates :user_id, :presence => true
+
+
 
   belongs_to :user
 
