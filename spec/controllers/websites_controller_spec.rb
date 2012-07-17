@@ -24,7 +24,7 @@ describe WebsitesController do
   # Website. As you add validations to Website, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    {}
+    { :user_id => 1 }
   end
 
   # This should return the minimal set of values that should be in the session
@@ -36,6 +36,7 @@ describe WebsitesController do
 
   describe "GET index" do
     it "assigns all websites as @websites" do
+      puts "valid_attributes: #{valid_attributes.to_s}"
       website = Website.create! valid_attributes
       get :index, {}, valid_session
       assigns(:websites).should eq([website])
