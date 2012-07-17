@@ -40,7 +40,15 @@ class WebsitesController < ApplicationController
   # POST /websites
   # POST /websites.json
   def create
-    @website = Website.new(params[:website])
+    url = params[:website][:url]
+    name = params[:website][:name]
+    summary = params[:website][:summary]
+    user_id = current_user.id
+    @website = Website.new
+    @website.url = url
+    @website.name = name
+    @website.summary = summary
+    @website.user_id = user_id
 
     respond_to do |format|
       if @website.save
