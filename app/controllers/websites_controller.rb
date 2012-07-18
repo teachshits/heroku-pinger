@@ -40,6 +40,7 @@ class WebsitesController < ApplicationController
   # POST /websites
   # POST /websites.json
   def create
+
     url = params[:website][:url]
     name = params[:website][:name]
     summary = params[:website][:summary]

@@ -31,7 +31,9 @@ describe WebsitesController do
   # in order to pass any filters (e.g. authentication) defined in
   # WebsitesController. Be sure to keep this updated too.
   def valid_session
-    {}
+    { 
+      
+    }
   end
 
   describe "GET index" do
@@ -69,6 +71,8 @@ describe WebsitesController do
   describe "POST create" do
     describe "with valid params" do
       it "creates a new Website" do
+        puts "valid_attributes: #{valid_attributes}"
+        puts "valid_session: #{valid_session}"
         expect {
           post :create, {:website => valid_attributes}, valid_session
         }.to change(Website, :count).by(1)
