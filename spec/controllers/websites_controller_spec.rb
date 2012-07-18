@@ -20,23 +20,24 @@ require 'spec_helper'
 
 describe WebsitesController do
 
-  before (:each) do
-    # this works: @user = FactoryGirl.create(:user)
+  # before (:each) do
+    # this works: 
+    # @user = FactoryGirl.create(:user)
     # this also works:
-    @user = User.new( # 
-      # :id => 1, 
-       :provider => "twitter",
-    :uid => "12345",
-    :name => "Bobkhkhk")
-    @user.save
-    # sign_in @user
-  end
+    # @user = User.new( :provider => "twitter", :uid => "12345", :name => "the user")
+    # @user.save
+  # end
+  let (:user) {
+    FactoryGirl.create(:user)
+  }
 
   # This should return the minimal set of attributes required to create a valid
   # Website. As you add validations to Website, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    { :user_id => 1 }
+    { :user_id => 1,
+      :url => "http://valid-url-0000.herokuapp.com/users/1/edit"
+    }
   end
 
   # This should return the minimal set of values that should be in the session
@@ -44,10 +45,8 @@ describe WebsitesController do
   # WebsitesController. Be sure to keep this updated too.
   def valid_session
     {
-      "session_id"=>"d5e48ff219d51cab17deb9c247e802e2", 
-      "_csrf_token"=>"quloScWJHyDA0HOKr5MEfgjZExqlHDINjnFnvrHPVUY=", 
-      "oauth"=>{"twitter"=>{"callback_confirmed"=>true}}, 
-      "user_id"=>1
+      # good: "user_id"=> @user.id
+      "user_id"=> user.id
     }
   end
 

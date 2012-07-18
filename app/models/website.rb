@@ -9,7 +9,9 @@ class Website < ActiveRecord::Base
     :message => "%{value} is not a valid size" }
   validates :minute, :presence => true
   validates :user_id, :presence => true
+  validates_format_of :url, :with => /^(http):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/ix
 
+  # validates :url, format: { with: /^(http):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/ix }
 
 
   belongs_to :user

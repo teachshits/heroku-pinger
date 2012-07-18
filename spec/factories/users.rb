@@ -4,6 +4,6 @@ FactoryGirl.define do
   factory :user do
     provider "twitter"
     uid "12345"
-    name "Bob"
+    name "Jimmy"
   end
 end
