@@ -21,7 +21,14 @@ require 'spec_helper'
 describe WebsitesController do
 
   before (:each) do
-    @user = FactoryGirl.create(:user)
+    # this works: @user = FactoryGirl.create(:user)
+    # this also works:
+    @user = User.new( # 
+      # :id => 1, 
+       :provider => "twitter",
+    :uid => "12345",
+    :name => "Bobkhkhk")
+    @user.save
     # sign_in @user
   end
 
