@@ -43,7 +43,13 @@ class WebsitesController < ApplicationController
     url = params[:website][:url]
     name = params[:website][:name]
     summary = params[:website][:summary]
+    puts "---- current_user: #{current_user}"
+    logger.info session.inspect
+    puts "----------------"
+    puts "#{session.inspect}"
+    puts "----------------"
     user_id = current_user.id
+    
     @website = Website.new
     @website.url = url
     @website.name = name

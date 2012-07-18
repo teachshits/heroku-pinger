@@ -20,6 +20,11 @@ require 'spec_helper'
 
 describe WebsitesController do
 
+  before (:each) do
+    @user = FactoryGirl.create(:user)
+    # sign_in @user
+  end
+
   # This should return the minimal set of attributes required to create a valid
   # Website. As you add validations to Website, be sure to
   # update the return value of this method accordingly.
@@ -31,7 +36,12 @@ describe WebsitesController do
   # in order to pass any filters (e.g. authentication) defined in
   # WebsitesController. Be sure to keep this updated too.
   def valid_session
-    {}
+    {
+      "session_id"=>"d5e48ff219d51cab17deb9c247e802e2", 
+      "_csrf_token"=>"quloScWJHyDA0HOKr5MEfgjZExqlHDINjnFnvrHPVUY=", 
+      "oauth"=>{"twitter"=>{"callback_confirmed"=>true}}, 
+      "user_id"=>1
+    }
   end
 
   describe "GET index" do
@@ -69,8 +79,15 @@ describe WebsitesController do
   describe "POST create" do
     describe "with valid params" do
       it "creates a new Website" do
+        puts "valid_attributes: #{valid_attributes}"
+        puts "valid_attributes.class: #{valid_attributes.class}"
+        puts "valid_session: #{valid_session}"
+        puts "valid_session.class: #{valid_session.class}"
+        session[:user_id] = 1
         expect {
+          # ORIG: 
           post :create, {:website => valid_attributes}, valid_session
+          # post :create, {:website => valid_attributes}, session[:user_id]
         }.to change(Website, :count).by(1)
       end
 
