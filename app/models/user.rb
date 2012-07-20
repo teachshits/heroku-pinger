@@ -1,7 +1,6 @@
 class User < ActiveRecord::Base
   attr_accessible :email, :name, :provider, :uid
-  attr_accessible :provider, :uid, :name, :email
-
+  
   def self.create_with_omniauth(auth)
     create! do |user|
       user.provider = auth['provider']
@@ -14,6 +13,7 @@ class User < ActiveRecord::Base
   end
   
   validates :name, :presence => true
+  validates :uid, :presence => true
 
   has_many :websites
 

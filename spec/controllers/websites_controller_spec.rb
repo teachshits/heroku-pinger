@@ -28,7 +28,7 @@ describe WebsitesController do
     # @user.save
   # end
   let (:user) {
-    FactoryGirl.create(:user)
+     FactoryGirl.create(:user)
   }
 
   # This should return the minimal set of attributes required to create a valid
