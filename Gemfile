@@ -19,3 +19,7 @@ gem "omniauth", ">= 1.1.0"
 gem "omniauth-twitter"
 gem "bootstrap-sass", ">= 2.0.3"
 gem "therubyracer", :group => :assets, :platform => :ruby
+
+gem 'simplecov', :require => false, :group => :test
+
+#- EOF
