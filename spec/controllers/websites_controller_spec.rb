@@ -47,12 +47,13 @@ describe WebsitesController do
     {
       # good: "user_id"=> @user.id
       "user_id"=> user.id
+      
     }
   end
 
   describe "GET index" do
     it "assigns all websites as @websites" do
-      puts "valid_attributes: #{valid_attributes.to_s}"
+      # puts "valid_attributes: #{valid_attributes.to_s}"
       website = Website.create! valid_attributes
       get :index, {}, valid_session
       assigns(:websites).should eq([website])
@@ -85,10 +86,10 @@ describe WebsitesController do
   describe "POST create" do
     describe "with valid params" do
       it "creates a new Website" do
-        puts "valid_attributes: #{valid_attributes}"
-        puts "valid_attributes.class: #{valid_attributes.class}"
-        puts "valid_session: #{valid_session}"
-        puts "valid_session.class: #{valid_session.class}"
+        # puts "valid_attributes: #{valid_attributes}"
+        # puts "valid_attributes.class: #{valid_attributes.class}"
+        # puts "valid_session: #{valid_session}"
+        # puts "valid_session.class: #{valid_session.class}"
         session[:user_id] = 1
         expect {
           # ORIG: 
