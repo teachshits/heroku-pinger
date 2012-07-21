@@ -2,20 +2,20 @@ require 'spec_helper'
 
 describe Website do
 
-=begin
+
   before :each do 
     @website = Website.new(
       minute: 1, user_id: 1, url: "http://www.yahoo.com"
     )
   end
-=end
+
+=begin
   before (:each) do
-    # this works:
     @website = FactoryGirl.create(:website)
-    # this also works:
-    # @user = User.new( :provider => "twitter", :uid => "12345", :name => "the user")
     @website.save
   end
+=end
+
   let(:website) {
     Website.new(
       minute: 1, user_id: 1, url: "http://www.yahoo.com"
@@ -44,6 +44,11 @@ describe Website do
 
   describe "fails with missing url" do
     before { @website.url = nil }
+    it { should_not be_valid }
+  end
+
+  describe "fails with invalid url" do
+    before { @website.url = "www.google.com" }
     it { should_not be_valid }
   end
 
