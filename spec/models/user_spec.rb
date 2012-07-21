@@ -7,6 +7,8 @@ describe User do
                      provider: "twitter", uid: "1234")
   end
 
+  subject { @user }
+
   it { should respond_to(:name) }
   it { should respond_to(:email) }
   it { should respond_to(:provider) }
