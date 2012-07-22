@@ -20,13 +20,14 @@ require 'spec_helper'
 
 describe WebsitesController do
 
-  # before (:each) do
+  before (:each) do
+    request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:twitter] 
     # this works: 
     # @user = FactoryGirl.create(:user)
     # this also works:
     # @user = User.new( :provider => "twitter", :uid => "12345", :name => "the user")
     # @user.save
-  # end
+  end
   let (:user) {
      FactoryGirl.create(:user)
   }
