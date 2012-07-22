@@ -48,7 +48,7 @@ end
     end
 
     it "should contain a link to create a website" do
-
+=begin
       OmniAuth.config.test_mode = true
       OmniAuth.config.mock_auth[:twitter] =  {
         'provider' => 'twitter',
@@ -57,7 +57,8 @@ end
       }
 
       OmniAuth.config.add_mock(:twitter, {:uid => '12345'})
-
+=end
+      mock_omni_auth
       # user = FactoryGirl.create(:user)
       # sign_in(user)
       # @user = create(:user, :email => "Tester@testing.com")
