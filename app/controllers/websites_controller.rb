@@ -1,4 +1,9 @@
 class WebsitesController < ApplicationController
+
+  before_filter :signed_in_user,   only: [:new, :create, :update, :destroy]
+
+
+
   # GET /websites
   # GET /websites.json
   def index
@@ -94,4 +99,12 @@ class WebsitesController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+private 
+  def signed_in_user
+    redirect_to root_path unless user_signed_in? 
+  end
+
+    
+
 end

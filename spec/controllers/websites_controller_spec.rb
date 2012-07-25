@@ -52,6 +52,12 @@ describe WebsitesController do
     }
   end
 
+  def invalid_session 
+    { 
+    "user_id" => 5 
+  }
+    end
+
   describe "GET index" do
     it "assigns all websites as @websites" do
       # puts "valid_attributes: #{valid_attributes.to_s}"
@@ -104,7 +110,13 @@ describe WebsitesController do
         assigns(:website).should be_a(Website)
         assigns(:website).should be_persisted
       end
-
+=begin
+      it "adfdfdfdf assigns a newly created website as @website" do
+        post :create, {:website => valid_attributes}, invalid_session
+        assigns(:website).should_not be_a(Website)
+        assigns(:website).should_not be_persisted
+      end
+=end
       it "redirects to the created website" do
         post :create, {:website => valid_attributes}, valid_session
         response.should redirect_to(Website.last)

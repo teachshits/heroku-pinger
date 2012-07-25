@@ -52,11 +52,22 @@ describe "Websites" do
 
     it "should contain a link to create a website" do
 
-      mock_omni_auth
+      # mock_omni_auth
       
-      get websites_path, {}, valid_session
+        OmniAuth.config.test_mode = true
+      OmniAuth.config.mock_auth[:twitter] = {
+  'uid' => '12345',
+  'provider' => 'twitter',
+        'info' => {
+      'name' => 'Jimmy'
+        }
+      }
+
+      OmniAuth.config.add_mock(:twitter, {:uid => '12345'})
+
+      get websites_path# , {}, valid_session
       # puts "-----------------------------"
-      # puts "response.body: #{response.body}"
+      puts "response.body: #{response.body}"
       # puts "-----------------------------"
       response.body.should have_content('New Website') 
     end
