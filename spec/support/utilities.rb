@@ -20,9 +20,8 @@ def sign_in(user)
 
 end
 
-
 def mock_omni_auth
-    OmniAuth.config.test_mode = true
+  OmniAuth.config.test_mode = true
   OmniAuth.config.mock_auth[:twitter] = {
   'uid' => '12345',
   'provider' => 'twitter',

@@ -1,12 +1,14 @@
 require 'spec_helper'
+
 # get method: part of get method: ActionDispatch::Integration::Runner
 # response.class: ActionDispatch::TestResponse
+
 describe "Websites" do
 
-before do 
+# before do 
   # request.env["devise.mapping"] = Devise.mappings[:user] 
   # 
-end
+# end
 
   let (:user) {
     FactoryGirl.create(:user)
@@ -42,34 +44,20 @@ end
 
     it "should not contain link to make a new website" do
       get websites_path
-      puts "get method: #{self.method(:get).owner} "
+      puts "------ get method: #{self.method(:get).owner} "
+      puts "------ response.class: #{response.class}"
       response.body.should have_content('Listing websites')
-      response.body.should_not have_content('New website') 
+      response.body.should_not have_content('New Website') 
     end
 
     it "should contain a link to create a website" do
-=begin
-      OmniAuth.config.test_mode = true
-      OmniAuth.config.mock_auth[:twitter] =  {
-        'provider' => 'twitter',
-        'uid' => '123545'
-        # etc.
-      }
 
-      OmniAuth.config.add_mock(:twitter, {:uid => '12345'})
-=end
       mock_omni_auth
-      # user = FactoryGirl.create(:user)
-      # sign_in(user)
-      # @user = create(:user, :email => "Tester@testing.com")
-      # sign_in(@user)
-      # visit '/signin'
-      # orig: get websites_path
       
       get websites_path, {}, valid_session
-      puts "-----------------------------"
-      puts "response.body: #{response.body}"
-      puts "-----------------------------"
+      # puts "-----------------------------"
+      # puts "response.body: #{response.body}"
+      # puts "-----------------------------"
       response.body.should have_content('New Website') 
     end
 
