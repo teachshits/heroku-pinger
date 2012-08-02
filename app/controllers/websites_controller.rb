@@ -1,4 +1,9 @@
 class WebsitesController < ApplicationController
+
+  before_filter :signed_in_user,   only: [:new, :create, :update, :destroy]
+
+
+
   # GET /websites
   # GET /websites.json
   def index
@@ -44,7 +49,13 @@ class WebsitesController < ApplicationController
     url = params[:website][:url]
     name = params[:website][:name]
     summary = params[:website][:summary]
+    # puts "---- current_user: #{current_user}"
+    # logger.info session.inspect
+    # puts "----------------"
+    # puts "#{session.inspect}"
+    # puts "----------------"
     user_id = current_user.id
+    
     @website = Website.new
     @website.url = url
     @website.name = name
@@ -89,4 +100,12 @@ class WebsitesController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+private 
+  def signed_in_user
+    redirect_to root_path unless user_signed_in? 
+  end
+
+    
+
 end

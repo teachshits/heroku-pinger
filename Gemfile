@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-gem 'rails', '3.2.3'
+gem 'rails', '3.2.7'
 gem 'pg'
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
@@ -19,3 +19,7 @@ gem "omniauth", ">= 1.1.0"
 gem "omniauth-twitter"
 gem "bootstrap-sass", ">= 2.0.3"
 gem "therubyracer", :group => :assets, :platform => :ruby
+
+gem 'simplecov', :require => false, :group => :test
+
+#- EOF

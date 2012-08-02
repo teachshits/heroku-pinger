@@ -7,9 +7,19 @@ class ApplicationController < ActionController::Base
   private
     def current_user
       begin
+        # puts "*********** in current_user"
+        # logger.info session.inspect
+        # puts "#{session.inspect}"
+        # puts "Gonna try to get the user"
+        
         @current_user ||= User.find(session[:user_id]) if session[:user_id]
+<<<<<<< HEAD
       rescue #Mongoid::Errors::DocumentNotFound
         puts "RESCUE ME +++++++++++++++++++++++++++++++++"
+=======
+      rescue # Mongoid::Errors::DocumentNotFound
+        puts "RESCUE ME++++++++++++++++++++++++++"
+>>>>>>> trying_to_post
         nil
       end
     end

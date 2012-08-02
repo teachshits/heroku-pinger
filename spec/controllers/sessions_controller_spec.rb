@@ -8,7 +8,7 @@ describe SessionsController do
 		    'uid' => '12345',
 		    'provider' => 'twitter',
 		    'info' => {
-		      'name' => 'Bob'
+		      'name' => 'Jimmy'
 		    }
 		  }
 	end
@@ -24,7 +24,7 @@ describe SessionsController do
   	it "redirects new users with blank email to fill in their email" do
   		@user = create(:user)
   		visit '/signin'
-  		page.should have_content('Logged in as Bob')
+  		page.should have_content('Logged in as Jimmy')
   		page.should have_content('Please enter your email address')
   		current_path.should == edit_user_path(@user)
   	end
