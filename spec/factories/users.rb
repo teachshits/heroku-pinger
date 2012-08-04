@@ -5,6 +5,7 @@ FactoryGirl.define do
     provider "twitter"
     uid "12345"
     name "Jimmy"
+    number_of_sites 0
   end
 
 
@@ -13,5 +14,6 @@ FactoryGirl.define do
     uid "12345"
     name "Jimmy"
     id 2
+    number_of_sites 0
   end
 end

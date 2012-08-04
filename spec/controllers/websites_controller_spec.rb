@@ -43,6 +43,12 @@ describe WebsitesController do
     }
   end
 
+  def invalid_attributes
+    { :user_id => 1,
+      :url => "valid-url-0000.herokuapp.com/users/1/edit"
+    }
+  end
+
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # WebsitesController. Be sure to keep this updated too.
@@ -111,6 +117,16 @@ describe WebsitesController do
         post :create, {:website => valid_attributes}, valid_session
         assigns(:website).should be_a(Website)
         assigns(:website).should be_persisted
+      end
+
+      it "assigns a newly created website as string" do
+        puts "Website.count: #{Website.count}"
+        puts "User.first.number_of_sites: #{User.first}"
+        post :create, {:website => valid_attributes}, valid_session
+        assigns(:website).should be_a(Website)
+        assigns(:website).should be_persisted
+        puts "Website.count: #{Website.count}"
+        puts "User.first.number_of_sites: #{User.first.number_of_sites}"
       end
 =begin
       it "adfdfdfdf assigns a newly created website as @website" do

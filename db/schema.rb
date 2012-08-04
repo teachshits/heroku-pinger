@@ -11,23 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120716215050) do
-
-  create_table "pings", :force => true do |t|
-    t.integer  "status"
-    t.integer  "response_length"
-    t.integer  "website_id"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
-  end
+ActiveRecord::Schema.define(:version => 20120804070101) do
 
   create_table "users", :force => true do |t|
     t.string   "provider"
     t.string   "uid"
     t.string   "name"
     t.string   "email"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+    t.integer  "number_of_sites"
   end
 
   create_table "websites", :force => true do |t|
