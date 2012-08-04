@@ -61,7 +61,7 @@ class WebsitesController < ApplicationController
     @website.summary = summary
     @website.user_id = user_id
     @website.failed_tries = 0
-    @website.succesful_tries = 0
+    @website.successful_tries = 0
 
     respond_to do |format|
       if @website.save

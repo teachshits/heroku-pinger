@@ -39,7 +39,9 @@ describe WebsitesController do
   # update the return value of this method accordingly.
   def valid_attributes
     { :user_id => 1,
-      :url => "http://valid-url-0000.herokuapp.com/users/1/edit"
+      :url => "http://valid-url-0000.herokuapp.com/users/1/edit",
+      :failed_tries => 0,
+      :successful_tries => 1
     }
   end
 
