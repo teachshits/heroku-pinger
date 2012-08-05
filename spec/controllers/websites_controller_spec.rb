@@ -45,6 +45,14 @@ describe WebsitesController do
     }
   end
 
+  def valid_attributes_from_site(website_url)
+    { :user_id => 1,
+      :url => website_url,
+      :failed_tries => 0,
+      :successful_tries => 1
+    }
+  end
+
   def invalid_attributes
     { :user_id => 1,
       :url => "valid-url-0000.herokuapp.com/users/1/edit"
@@ -130,6 +138,25 @@ describe WebsitesController do
         puts "Website.count: #{Website.count}"
         puts "User.first.number_of_sites: #{User.first.number_of_sites}"
       end
+
+      it "creates a few websites" do
+        the_sites = Array.new
+        the_sites.push(Website.new( :url => "http://website1.com", :minute => 1, :name => "website1", :user_id => 1, :successful_tries => 0, :failed_tries => 0, :summary => "this is website 1"))
+        the_sites.push(Website.new( :url => "http://website2.com", :minute => 1, :name => "website2", :user_id => 1, :successful_tries => 0, :failed_tries => 0, :summary => "this is website 2"))
+        
+        
+        puts "Website.count: #{Website.count}"
+        the_sites.each do |site|
+          # site = FactoryGirl.create(my_site)
+          # post :create, {:website => valid_attributes}, valid_session
+  
+          post :create, {:website => valid_attributes_from_site(site.url)}, valid_session
+          assigns(:website).should be_a(Website)
+          assigns(:website).should be_persisted
+          puts "Website.count: #{Website.count}"
+        end
+      end
+
 =begin
       it "adfdfdfdf assigns a newly created website as @website" do
         post :create, {:website => valid_attributes}, invalid_session
