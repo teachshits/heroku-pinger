@@ -49,7 +49,7 @@ class WebsitesController < ApplicationController
     name = params[:website][:name]
     summary = params[:website][:summary]
     # puts "---- current_user: #{current_user}"
-    puts "current_user.id in controller: #{current_user.id}"
+    # puts "current_user.id in controller: #{current_user.id}"
     # logger.info session.inspect
     # puts "----------------"
     # puts "#{session.inspect}"
@@ -69,9 +69,9 @@ class WebsitesController < ApplicationController
         user = @website.user
         user.number_of_sites += 1
         user.save
-        puts "user.number_of_sites in controller: #{user.number_of_sites}"
-        puts "user.id in controller: #{user.id}"
-        puts "user.name in controller: #{user.name}"
+        # puts "user.number_of_sites in controller: #{user.number_of_sites}"
+        # puts "user.id in controller: #{user.id}"
+        # puts "user.name in controller: #{user.name}"
         format.html { redirect_to @website, notice: 'Website was successfully created.' }
         format.json { render json: @website, status: :created, location: @website }
       else
