@@ -1,6 +1,4 @@
 HerokuPinger::Application.routes.draw do
-  resources :pings
-
   # resources :websites
   get '/websites' => 'websites#index', :as => 'websites'
   post '/websites' => 'websites#create'
