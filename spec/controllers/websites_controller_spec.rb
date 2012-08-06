@@ -63,14 +63,9 @@ describe WebsitesController do
   # in order to pass any filters (e.g. authentication) defined in
   # WebsitesController. Be sure to keep this updated too.
   def valid_session
-<<<<<<< HEAD
-    { 
-=======
     {
       # good: "user_id"=> @user.id
-      "user_id"=> user.id
->>>>>>> trying_to_post
-      
+      "user_id"=> user.id      
     }
   end
 
@@ -121,16 +116,11 @@ describe WebsitesController do
   describe "POST create" do
     describe "with valid params" do
       it "creates a new Website" do
-<<<<<<< HEAD
-        puts "valid_attributes: #{valid_attributes}"
-        puts "valid_session: #{valid_session}"
-=======
         # puts "valid_attributes: #{valid_attributes}"
         # puts "valid_attributes.class: #{valid_attributes.class}"
         # puts "valid_session: #{valid_session}"
         # puts "valid_session.class: #{valid_session.class}"
         session[:user_id] = 1
->>>>>>> trying_to_post
         expect {
           # ORIG: 
           post :create, {:website => valid_attributes}, valid_session
