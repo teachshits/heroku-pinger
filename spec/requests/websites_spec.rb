@@ -51,7 +51,6 @@ describe "Websites" do
     end
 
     pending it "should contain a link to create a website" do
-
       # mock_omni_auth
       
       OmniAuth.config.test_mode = true
@@ -62,7 +61,6 @@ describe "Websites" do
           'name' => 'Jimmy'
         }
       }
-
       OmniAuth.config.add_mock(:twitter, {:uid => '12345'})
 
       get websites_path# , {}, valid_session
