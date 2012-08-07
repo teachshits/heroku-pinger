@@ -195,7 +195,8 @@ describe WebsitesController do
         # puts "user.id right after save: #{user.id}"
         # valid_session_from_user(user_id)
         # puts "Website.count: #{Website.count}"
-        the_sites.each do |site|
+        five_sites = the_sites[0..4]
+        five_sites.each do |site|
             
           post :create, {:website => valid_attributes_from_site(site.url)}, valid_session_from_user(user.id)
           assigns(:website).should be_a(Website)
@@ -205,7 +206,7 @@ describe WebsitesController do
           final_user_num_of_sites += 1
           # puts "-----"
         end
-        final_user_num_of_sites.should == the_sites.length
+        final_user_num_of_sites.should == five_sites.length
         user.reload # got to reload to get the new data
         # puts "In the final place"
         # puts "final_user_num_of_sites: #{final_user_num_of_sites}"
@@ -213,7 +214,7 @@ describe WebsitesController do
         puts "user.number_of_sites: #{user.number_of_sites}"
         # puts "user.name: #{user.name}"
         # puts "user.id: #{user.id}"
-        user.number_of_sites.should == the_sites.length
+        user.number_of_sites.should == five_sites.length
         
       end
       

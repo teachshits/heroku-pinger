@@ -50,22 +50,22 @@ describe "Websites" do
       response.body.should_not have_content('New Website') 
     end
 
-    pending it "should contain a link to create a website" do
+    it "should contain a link to create a website when you are logged in" do
 
-      # mock_omni_auth
+      mock_omni_auth
       
-      OmniAuth.config.test_mode = true
+=begin
       OmniAuth.config.mock_auth[:twitter] = {
         'uid' => '12345',
         'provider' => 'twitter',
         'info' => {
           'name' => 'Jimmy'
         }
-      }
+      } 
+=end
+      # OmniAuth.config.add_mock(:twitter, {:uid => '12345'})
 
-      OmniAuth.config.add_mock(:twitter, {:uid => '12345'})
-
-      get websites_path# , {}, valid_session
+      get websites_path, {}, valid_session
       # puts "-----------------------------"
       puts "response.body: #{response.body}"
       # puts "-----------------------------"
@@ -74,4 +74,5 @@ describe "Websites" do
 
   end
 end
+
 
