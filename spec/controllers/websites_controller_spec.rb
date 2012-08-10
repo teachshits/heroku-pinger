@@ -82,6 +82,17 @@ describe WebsitesController do
     }
   end
 
+  def generate_factory_sites
+    the_sites = Array.new
+    the_sites.push(FactoryGirl.create(:website1))
+    the_sites.push(FactoryGirl.create(:website2))
+    the_sites.push(FactoryGirl.create(:website3))
+    the_sites.push(FactoryGirl.create(:website4))
+    the_sites.push(FactoryGirl.create(:website5))
+    the_sites.push(FactoryGirl.create(:website6))
+    return the_sites
+  end
+
   def generate_sites_array
     the_sites = Array.new
     the_sites.push(Website.new( 
@@ -191,6 +202,39 @@ describe WebsitesController do
         initial_user_num_of_sites = 0
         final_user_num_of_sites = 0
         the_sites = generate_sites_array
+        user.save
+        # puts "user.id right after save: #{user.id}"
+        # valid_session_from_user(user_id)
+        # puts "Website.count: #{Website.count}"
+        five_sites = the_sites[0..4]
+        five_sites.each do |site|
+            
+          post :create, {:website => valid_attributes_from_site(site.url)}, valid_session_from_user(user.id)
+          assigns(:website).should be_a(Website)
+          assigns(:website).should be_persisted
+          # puts "Website.count: #{Website.count}"
+          # puts "User.first.number_of_sites: #{user.number_of_sites}"
+          final_user_num_of_sites += 1
+          # puts "-----"
+        end
+        final_user_num_of_sites.should == five_sites.length
+        user.reload # got to reload to get the new data
+        # puts "In the final place"
+        # puts "final_user_num_of_sites: #{final_user_num_of_sites}"
+        # puts "the_sites.length: #{the_sites.length}"
+        puts "user.number_of_sites: #{user.number_of_sites}"
+        # puts "user.name: #{user.name}"
+        # puts "user.id: #{user.id}"
+        user.number_of_sites.should == five_sites.length
+        
+      end
+
+      it "creates a few websites with FactoryGirl" do
+
+        user = FactoryGirl.create(:user)
+        initial_user_num_of_sites = 0
+        final_user_num_of_sites = 0
+        the_sites = generate_factory_sites
         user.save
         # puts "user.id right after save: #{user.id}"
         # valid_session_from_user(user_id)
