@@ -1,13 +1,16 @@
 == Welcome to Rails
 
-An app that will ping Heroku sites that will run on Heroku
+An app that will ping Heroku sites that will run on Heroku  
 
-To get it to run:
-1. Get ready to use postgresql
-edit config/database.yml
-change all instances of  "ericm" to your username
-rake db:create:all
-	
-rake db:migrate
-	
-rake db:test:prepare
+This app uses rvm to manage the gemset. Edit the .rvmrc file if you need to.    
+
+To get it to run:  
+Run "bundle install"  
+  
+Set up postgresql  
+edit config/database.yml  
+change all instances of "ericm" to your username  
+rake db:create:all  
+rake db:migrate  
+rake db:test:prepare  
+

@@ -11,18 +11,18 @@ describe "Websites" do
 # end
 
   let (:user) {
-    FactoryGirl.create(:user)
+    FactoryGirl.create(:user2)
   }
-
+=begin
   before (:each) do
     # this works: 
-    user = FactoryGirl.create(:user)
+    user = FactoryGirl.create(:user2)
     # this also works:
     # @user = User.new( :provider => "twitter", :uid => "12345", :name => "the user")
     user.save
     
   end
-
+=end
   def valid_attributes
     { :user_id => user.id,
       :url => "http://valid-url-0000.herokuapp.com/users/1/edit"
@@ -52,7 +52,7 @@ describe "Websites" do
 
     it "should contain a link to create a website when you are logged in" do
 
-      mock_omni_auth
+      # mock_omni_auth
       
 =begin
       OmniAuth.config.mock_auth[:twitter] = {
@@ -68,7 +68,10 @@ describe "Websites" do
       get websites_path, {}, valid_session
       # puts "-----------------------------"
       puts "response.body: #{response.body}"
-      # puts "-----------------------------"
+      puts "-----------------------------"
+      puts "valid_attributes: #{valid_attributes.to_s}"
+      puts "valid_session: #{valid_session.to_s}"
+      
       response.body.should have_content('New Website') 
     end
 

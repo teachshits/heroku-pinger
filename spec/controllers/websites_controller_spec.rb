@@ -93,6 +93,18 @@ describe WebsitesController do
     return the_sites
   end
 
+  def generate_website_hashes
+    site_hashes = Array.new
+    site_hashes.push({"url" => "http://valid-url-5374.herokuapp.com/users/1/edit", "minute" => 1, "name" => "MyString", "summary" => "MyText", "failed_tries" => 0, "successful_tries" => 0})
+    site_hashes.push({url: "http://website1.com", minute: 1, name: "Website 1", summary: "This is website 1", failed_tries: 0, successful_tries: 0})
+    site_hashes.push({url: "http://website2.com", minute: 1, name: "Website 2", summary: "This is website 2", failed_tries: 0, successful_tries: 0})
+    site_hashes.push({url: "http://website3.com", minute: 1, name: "Website 3", summary: "This is website 3", failed_tries: 0, successful_tries: 0})
+    site_hashes.push({url: "http://website4.com", minute: 1, name: "Website 4", summary: "This is website 4", failed_tries: 0, successful_tries: 0})
+    site_hashes.push({url: "http://website5.com", minute: 1, name: "Website 5", summary: "This is website 5", failed_tries: 0, successful_tries: 0})
+    site_hashes.push({url: "http://website6.com", minute: 1, name: "Website 6", summary: "This is website 6", failed_tries: 0, successful_tries: 0})
+    return site_hashes
+  end
+
   describe "GET index" do
     it "assigns all websites as @websites" do
       # puts "valid_attributes: #{valid_attributes.to_s}"
@@ -155,7 +167,6 @@ describe WebsitesController do
       end
 
       it "creates a few websites with FactoryGirl" do
-
         user = FactoryGirl.create(:user)
         initial_user_num_of_sites = 0
         final_user_num_of_sites = 0
@@ -166,7 +177,6 @@ describe WebsitesController do
         # puts "Website.count: #{Website.count}"
         five_sites = the_sites[0..4]
         five_sites.each do |site|
-            
           post :create, {:website => valid_attributes_from_site(site.url)}, valid_session_from_user(user.id)
           assigns(:website).should be_a(Website)
           assigns(:website).should be_persisted
@@ -183,10 +193,76 @@ describe WebsitesController do
         puts "user.number_of_sites: #{user.number_of_sites}"
         # puts "user.name: #{user.name}"
         # puts "user.id: #{user.id}"
-        user.number_of_sites.should == five_sites.length
+        user.number_of_sites.should == five_sites.length  
+      end
+
+
+      it "only creates five websites with FactoryGirl" do
+        puts "********************************* starting only creates five websites with FactoryGirl"
+        puts "Website.count: #{Website.count}"
+        user = FactoryGirl.create(:user)
+        sites_delete = Website.all # find_all _by_user_id(user.id)
+        puts "sites_delete.count: #{sites_delete.count}"
+        sites_delete.each do |s_d|
+          puts "Website name: #{s_d.name}"
+          s_d.destroy
+        end
+        
+        initial_user_num_of_sites = 0
+        final_user_num_of_sites = 0
+        the_sites = generate_factory_sites
+        user.save
+        # puts "user.id right after save: #{user.id}"
+        # valid_session_from_user(user_id)
+        puts "Website.count: #{Website.count}"
+        five_sites = the_sites[0..4]
+        five_sites.each do |site|
+          post :create, {:website => valid_attributes_from_site(site.url)}, valid_session_from_user(user.id)
+          assigns(:website).should be_a(Website)
+          assigns(:website).should be_persisted
+          puts "-- Website.count: #{Website.count}"
+          puts "-- Website.maximum('id'): #{Website.maximum("id")}"
+          puts "-- User.first.number_of_sites: #{user.number_of_sites}"
+          final_user_num_of_sites += 1
+          user.reload
+          puts "-----"
+        end
+        final_user_num_of_sites.should == five_sites.length
+        user.reload # got to reload to get the new data
+        # puts "In the final place"
+        # puts "final_user_num_of_sites: #{final_user_num_of_sites}"
+        # puts "the_sites.length: #{the_sites.length}"
+        puts "user.number_of_sites: #{user.number_of_sites}"
+        # puts "user.name: #{user.name}"
+        # puts "user.id: #{user.id}"
+        user.number_of_sites.should == five_sites.length  
+
+        post :create, {:website => valid_attributes_from_site(the_sites.last.url)}, valid_session_from_user(user.id)
+        assigns(:website).should be_a(Website)
+        assigns(:website).should_not be_persisted
+        # puts "Website.count: #{Website.count}"
+        # puts "User.first.number_of_sites: #{user.number_of_sites}"
+        final_user_num_of_sites += 1
+        # puts "-----"
+        user.reload
+        puts "user.number_of_sites: #{user.number_of_sites}"
+        user.number_of_sites.should == five_sites.length  
+        some_sites = Website.find_all_by_user_id(user.id)
+        puts "some_sites.count: #{some_sites.count}"
+        some_sites.count.should == 5
         
       end
       
+      it "uses site hashes" do
+        puts "fffffffffffffffffffffff"
+        hash_array = generate_website_hashes
+        puts "hash_array.class: #{hash_array.class}"
+        hash_array.each do |some_hash|
+          puts "----"
+          puts "-- some_hash.class: #{some_hash.class}"
+          # puts "-- some_hash.url: #{some_hash.url}"
+        end
+      end
 
 =begin
       it "adfdfdfdf assigns a newly created website as @website" do

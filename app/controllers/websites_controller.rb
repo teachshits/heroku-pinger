@@ -60,18 +60,19 @@ class WebsitesController < ApplicationController
     @website.url = url
     @website.name = name
     @website.summary = summary
-    @website.user_id = user_id
+    @website.user_id = current_user.id
     @website.failed_tries = 0
     @website.successful_tries = 0
 
+    # user = User.find_by_id(current_user.id)
+
     respond_to do |format|
-      if @website.save
-        user = @website.user
-        user.number_of_sites += 1
-        user.save
-        # puts "user.number_of_sites in controller: #{user.number_of_sites}"
-        # puts "user.id in controller: #{user.id}"
-        # puts "user.name in controller: #{user.name}"
+      if current_user.number_of_sites < 5 &&  @website.save
+        current_user.number_of_sites += 1
+        current_user.save
+        puts "user.number_of_sites in controller: #{current_user.number_of_sites}"
+        puts "user.id in controller: #{current_user.id}"
+        puts "user.name in controller: #{current_user.name}"
         format.html { redirect_to @website, notice: 'Website was successfully created.' }
         format.json { render json: @website, status: :created, location: @website }
       else
