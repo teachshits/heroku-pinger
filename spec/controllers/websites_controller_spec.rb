@@ -463,8 +463,8 @@ describe WebsitesController do
       five_sites = site_hashes[0..4]
       five_sites.each do |site|
         post :create, {:website => valid_attributes_from_site(site[:url])}, valid_session_from_user(user2.id)
-        x = assigns(:website).should be_a(Website)
-        y = assigns(:website).should be_persisted
+        assigns(:website).should be_a(Website)
+        assigns(:website).should be_persisted
         puts "x is a #{x.class}"
         puts "Y is a #{y.class}"
         puts "-- Website.count: #{Website.count}"

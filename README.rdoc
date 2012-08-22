@@ -15,6 +15,12 @@ rake db:migrate
 rake db:test:prepare  
 
 
+Also, this uses OmniAuth and Twitter for authenticaion. So you will need to register this as a Twitter app. The key and secret are in 
+the file config/initializers/omniauth.rb, and you will need to save them as environmental variables:   
+provider :twitter, ENV["TWITTER_KEY"], ENV["TWITTER_SECRET"]    
+
+So you will need to set that stuff up before you actually run it.   
+
 Right now there are a lot of comments and calls to puts, particularly in the tests. I am trying to see what the tests 
 are doing. It's great that Ruby and Rails do so much out of the box, but sometimes convenience crosses the line into voodoo.   
 
