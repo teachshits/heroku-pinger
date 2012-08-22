@@ -101,14 +101,22 @@ class WebsitesController < ApplicationController
   def destroy
     @website = Website.find(params[:id])
     user_id = current_user.id
-    if @website.destroy
-      current_user.number_of_sites -= 1
-      current_user.save
-    end
-
+    puts "trying to delete: @website.user_id: #{@website.user_id} current_user.id: #{current_user.id}"
     respond_to do |format|
-      format.html { redirect_to websites_url }
-      format.json { head :no_content }
+      if @website.user_id != current_user.id
+        puts "trying to delete with wrong id: @website.user_id: #{@website.user_id} current_user.id: #{current_user.id}"
+        format.html { redirect_to websites_url , notice: 'Website entry owned by different user.' }
+        format.json { render json: @website.errors, status: :unprocessable_entity }
+      elsif @website.destroy
+        
+        current_user.number_of_sites -= 1
+        current_user.save
+        format.html { redirect_to websites_url , notice: 'Website was successfully deleted.' }
+        format.json { head :no_content }
+      end
+
+    
+      
     end
   end
 
