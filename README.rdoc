@@ -14,3 +14,10 @@ rake db:create:all
 rake db:migrate  
 rake db:test:prepare  
 
+
+Right now there are a lot of comments and calls to puts, particularly in the tests. I am trying to see what the tests 
+are doing. It's great that Ruby and Rails do so much out of the box, but sometimes convenience crosses the line into voodoo.   
+
+For example, some of the tests have stuff like this: post :create, {:website => valid_attributes}, valid_session   
+
+How do I get the object that symbol represents? At this point, I would still like to query stuff in the tests to figure out what is going on.      
