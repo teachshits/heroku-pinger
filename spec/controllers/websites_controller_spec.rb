@@ -439,16 +439,13 @@ describe WebsitesController do
       five_sites = Website.find_all_by_user_id(user.id)
       final_user_num_of_sites = five_sites.size
       five_sites.each do |site|
-        # delete :destroy, {:website => valid_attributes_from_site(site[:url])}, valid_session_from_user(user.id)
         delete :destroy, {:id => site.id}, valid_session_from_user(user.id)
         final_user_num_of_sites -= 1
         user.reload
         puts "-- after destroying: final_user_num_of_sites: #{final_user_num_of_sites}"
         puts "-- after destroying: user.number_of_sites: #{user.number_of_sites}"
         user.number_of_sites.should == final_user_num_of_sites
-        
       end
-
 
     end
 
