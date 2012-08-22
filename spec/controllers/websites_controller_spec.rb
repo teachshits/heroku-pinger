@@ -411,6 +411,47 @@ describe WebsitesController do
       }.to change(Website, :count).by(-1)
     end
 
+    it "decrements the user count after deleting" do
+      site_hashes = generate_website_hashes
+      user = FactoryGirl.create(:user)
+      user.number_of_sites.should == 0
+      final_user_num_of_sites = 0
+      # ---------------------------------------------
+              puts "Website.count: #{Website.count}"
+        five_sites = site_hashes[0..4]
+        five_sites.each do |site|
+          post :create, {:website => valid_attributes_from_site(site[:url])}, valid_session_from_user(user.id)
+          x = assigns(:website).should be_a(Website)
+          y = assigns(:website).should be_persisted
+        puts "x is a #{x.class}"
+        puts "Y is a #{y.class}"
+          puts "-- Website.count: #{Website.count}"
+          puts "-- Website.maximum('id'): #{Website.maximum("id")}"
+          puts "-- User.first.number_of_sites: #{user.number_of_sites}"
+          final_user_num_of_sites += 1
+          user.reload
+        user.number_of_sites.should == final_user_num_of_sites
+          puts "-----"
+        end
+      # ---------------------------------------------
+      # now delete them
+      final_user_num_of_sites = 0
+      five_sites = Website.find_all_by_user_id(user.id)
+      final_user_num_of_sites = five_sites.size
+      five_sites.each do |site|
+        # delete :destroy, {:website => valid_attributes_from_site(site[:url])}, valid_session_from_user(user.id)
+        delete :destroy, {:id => site.id}, valid_session_from_user(user.id)
+        final_user_num_of_sites -= 1
+        user.reload
+        puts "-- after destroying: final_user_num_of_sites: #{final_user_num_of_sites}"
+        puts "-- after destroying: user.number_of_sites: #{user.number_of_sites}"
+        user.number_of_sites.should == final_user_num_of_sites
+        
+      end
+
+
+    end
+
     it "redirects to the websites list" do
       website = Website.create! valid_attributes
       delete :destroy, {:id => website.to_param}, valid_session

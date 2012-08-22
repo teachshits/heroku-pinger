@@ -64,8 +64,6 @@ class WebsitesController < ApplicationController
     @website.failed_tries = 0
     @website.successful_tries = 0
 
-    # user = User.find_by_id(current_user.id)
-
     respond_to do |format|
       if current_user.number_of_sites < 5 &&  @website.save
         current_user.number_of_sites += 1
@@ -102,7 +100,11 @@ class WebsitesController < ApplicationController
   # DELETE /websites/1.json
   def destroy
     @website = Website.find(params[:id])
-    @website.destroy
+    user_id = current_user.id
+    if @website.destroy
+      current_user.number_of_sites -= 1
+      current_user.save
+    end
 
     respond_to do |format|
       format.html { redirect_to websites_url }
