@@ -14,6 +14,10 @@ class Website < ActiveRecord::Base
 
   belongs_to :user
 
+  def hello
+    puts "hello from #{self.name}--"
+  end
+
 
 protected
   def set_minute
