@@ -68,9 +68,9 @@ class WebsitesController < ApplicationController
       if current_user.number_of_sites < 5 &&  @website.save
         current_user.number_of_sites += 1
         current_user.save
-        puts "user.number_of_sites in controller: #{current_user.number_of_sites}"
-        puts "user.id in controller: #{current_user.id}"
-        puts "user.name in controller: #{current_user.name}"
+        # puts "user.number_of_sites in controller: #{current_user.number_of_sites}"
+        # puts "user.id in controller: #{current_user.id}"
+        # puts "user.name in controller: #{current_user.name}"
         format.html { redirect_to @website, notice: 'Website was successfully created.' }
         format.json { render json: @website, status: :created, location: @website }
       else
@@ -101,10 +101,10 @@ class WebsitesController < ApplicationController
   def destroy
     @website = Website.find(params[:id])
     user_id = current_user.id
-    puts "trying to delete: @website.user_id: #{@website.user_id} current_user.id: #{current_user.id}"
+    # puts "trying to delete: @website.user_id: #{@website.user_id} current_user.id: #{current_user.id}"
     respond_to do |format|
       if @website.user_id != current_user.id
-        puts "trying to delete with wrong id: @website.user_id: #{@website.user_id} current_user.id: #{current_user.id}"
+        # puts "trying to delete with wrong id: @website.user_id: #{@website.user_id} current_user.id: #{current_user.id}"
         format.html { redirect_to websites_url , notice: 'Website entry owned by different user.' }
         format.json { render json: @website.errors, status: :unprocessable_entity }
       elsif @website.destroy
@@ -114,9 +114,6 @@ class WebsitesController < ApplicationController
         format.html { redirect_to websites_url , notice: 'Website was successfully deleted.' }
         format.json { head :no_content }
       end
-
-    
-      
     end
   end
 
