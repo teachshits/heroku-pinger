@@ -5,7 +5,8 @@ describe Website do
 
   before :each do 
     @website = Website.new(
-      minute: 1, user_id: 1, url: "http://www.yahoo.com"
+      minute: 1, user_id: 1, url: "http://www.yahoo.com",
+      good_site: true
     )
   end
 
@@ -31,6 +32,7 @@ describe Website do
   it { should respond_to(:summary) }
   it { should respond_to(:url) }
   it { should respond_to(:user_id) }
+    it { should respond_to(:good_site) }
 
   describe "fails with missing user id" do
     before { @website.user_id = nil }
@@ -39,11 +41,17 @@ describe Website do
 
   describe "fails with missing minute" do
     before { @website.minute = nil }
+    # why does this one not work?
     # it { should_not be_valid }
   end
 
   describe "fails with missing url" do
     before { @website.url = nil }
+    it { should_not be_valid }
+  end
+
+  describe "fails with missing good_site" do
+    before { @website.good_site = nil }
     it { should_not be_valid }
   end
 

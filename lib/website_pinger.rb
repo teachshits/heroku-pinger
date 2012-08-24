@@ -16,6 +16,7 @@ class WebsitePinger
     time_s = c.to_s
     minute = time_s[14].to_i
     puts "about to call Websites.find_all_blah"
+
     websites = Website.find_all_by_minute(minute)
     puts "websites.size: #{websites.size}"
     websites.each do |site|
@@ -30,6 +31,7 @@ class WebsitePinger
       puts "result.class: #{result.class}"
       puts "result.length: #{result.length}"  
     end
+
   end
 
   def do_ping(site_url)

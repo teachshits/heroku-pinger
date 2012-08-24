@@ -63,6 +63,7 @@ class WebsitesController < ApplicationController
     @website.user_id = current_user.id
     @website.failed_tries = 0
     @website.successful_tries = 0
+    @website.good_site = true
 
     respond_to do |format|
       if current_user.number_of_sites < 5 &&  @website.save
