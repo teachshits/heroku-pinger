@@ -19,7 +19,8 @@ describe Website do
 
   let(:website) {
     Website.new(
-      minute: 1, user_id: 1, url: "http://www.yahoo.com"
+      minute: 1, user_id: 1, url: "http://www.yahoo.com",
+      name: "CNN"
     )
   }
 
@@ -42,11 +43,16 @@ describe Website do
   describe "fails with missing minute" do
     before { @website.minute = nil }
     # why does this one not work?
-    # it { should_not be_valid }
+    it { should_not be_valid }
   end
 
   describe "fails with missing url" do
     before { @website.url = nil }
+    it { should_not be_valid }
+  end
+
+  describe "fails with missing name" do
+    before { @website.name = nil }
     it { should_not be_valid }
   end
 
@@ -57,6 +63,11 @@ describe Website do
 
   describe "fails with invalid url" do
     before { @website.url = "www.google.com" }
+    it { should_not be_valid }
+  end
+
+  describe "fails with invalid minute" do
+    before { @website.minute = 7 }
     it { should_not be_valid }
   end
 

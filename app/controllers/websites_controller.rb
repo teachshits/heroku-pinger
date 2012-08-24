@@ -1,8 +1,6 @@
 class WebsitesController < ApplicationController
 
-  before_filter :signed_in_user,   only: [:new, :create, :update, :destroy]
-
-
+  before_filter :signed_in_user, only: [:new, :create, :update, :destroy]
 
   # GET /websites
   # GET /websites.json
