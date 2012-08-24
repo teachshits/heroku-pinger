@@ -24,7 +24,7 @@
     <td><%= website.summary %></td>
     <td><%= website.failed_tries %></td>
     <td><%= website.successful_tries %></td>
-    <td><%= website.user_id %></td>
+    <td><%= website.user.name %></td>
     <% if user_signed_in? %>
     <td><%= link_to 'Show', website %></td>
     <td><%= link_to 'Edit', edit_website_path(website) %></td>

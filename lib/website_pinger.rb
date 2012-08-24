@@ -17,7 +17,8 @@ class WebsitePinger
     minute = time_s[14].to_i
     puts "about to call Websites.find_all_blah"
 
-    websites = Website.find_all_by_minute(minute)
+    # websites = Website.find_all_by_minute(minute)
+    websites = Website.where("minute = ? AND good_site = ?", minute, true)
     puts "websites.size: #{websites.size}"
     websites.each do |site|
       puts "-----"
@@ -30,6 +31,15 @@ class WebsitePinger
       # puts result
       puts "result.class: #{result.class}"
       puts "result.length: #{result.length}"  
+      if result.length == 0
+        site.failed_tries += 1
+      else
+        site.successful_tries += 1
+      end
+      if site.failed_tries == 5
+        site.good_site = false
+      end
+      site.save
     end
 
   end
