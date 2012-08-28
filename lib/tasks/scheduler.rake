@@ -16,6 +16,5 @@ task :ping_sites => :environment do
 
   # WebsitePinger.do_Stuff
   wp = WebsitePinger.instance
-  wp.do_stuff
   wp.ping_sites
 end
