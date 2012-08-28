@@ -14,6 +14,7 @@ describe User do
   it { should respond_to(:provider) }
   it { should respond_to(:uid) }
   it { should respond_to(:number_of_sites) }
+  it { should respond_to(:is_admin) }
 
   describe "when name is not present" do
     before { @user.name = " " }

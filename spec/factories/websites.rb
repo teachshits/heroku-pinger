@@ -9,6 +9,7 @@ FactoryGirl.define do
     failed_tries 0
     successful_tries 0
     user_id 1
+    good_site true
   end
 
   factory :website1, class: Website do
@@ -19,6 +20,7 @@ FactoryGirl.define do
     failed_tries 0
     successful_tries 0
     user_id 1
+    good_site true
   end
 
   factory :website2, class: Website do
@@ -29,6 +31,7 @@ FactoryGirl.define do
     failed_tries 0
     successful_tries 0
     user_id 1
+    good_site true
   end
 
   factory :website3, class: Website do
@@ -39,6 +42,7 @@ FactoryGirl.define do
     failed_tries 0
     successful_tries 0
     user_id 1
+    good_site true
   end
 
   factory :website4, class: Website do
@@ -49,6 +53,7 @@ FactoryGirl.define do
     failed_tries 0
     successful_tries 0
     user_id 1
+    good_site true
   end
 
   factory :website5, class: Website do
@@ -59,6 +64,7 @@ FactoryGirl.define do
     failed_tries 0
     successful_tries 0
     user_id 1
+    good_site true
   end
 
   factory :website6, class: Website do
@@ -69,6 +75,7 @@ FactoryGirl.define do
     failed_tries 0
     successful_tries 0
     user_id 1
+    good_site true
   end
 
 end
