@@ -1,0 +1,101 @@
+2012-08-28T20:25:56+00:00 app[web.1]: Connecting to database specified by DATABASE_URL
+2012-08-28T20:25:56+00:00 app[web.1]: [2012-08-28 20:25:56] INFO  WEBrick 1.3.1
+2012-08-28T20:25:56+00:00 app[web.1]: [2012-08-28 20:25:56] INFO  ruby 1.9.2 (2011-07-09) [x86_64-linux]
+2012-08-28T20:25:56+00:00 app[web.1]: [2012-08-28 20:25:56] INFO  WEBrick::HTTPServer#start: pid=2 port=11206
+2012-08-28T20:25:57+00:00 heroku[web.1]: State changed from starting to up
+2012-08-28T20:26:43+00:00 heroku[api]: Add TWITTER_KEY config by emacadie@gmail.com
+2012-08-28T20:26:43+00:00 heroku[api]: Release v6 created by emacadie@gmail.com
+2012-08-28T20:26:43+00:00 heroku[web.1]: State changed from up to starting
+2012-08-28T20:26:45+00:00 heroku[web.1]: Starting process with command `bundle exec rails server -p 41758`
+2012-08-28T20:26:47+00:00 heroku[web.1]: Stopping all processes with SIGTERM
+2012-08-28T20:26:47+00:00 app[web.1]: [2012-08-28 20:26:47] ERROR SignalException: SIGTERM
+2012-08-28T20:26:47+00:00 app[web.1]: 	/usr/local/lib/ruby/1.9.1/webrick/server.rb:90:in `select'
+2012-08-28T20:26:49+00:00 app[web.1]: DEPRECATION WARNING: You have Rails 2.3-style plugins in vendor/plugins! Support for these plugins will be removed in Rails 4.0. Move them out and bundle them in your Gemfile, or fold them in to your app as lib/myplugin/* and config/initializers/myplugin.rb. See the release notes for more on this: http://weblog.rubyonrails.org/2012/1/4/rails-3-2-0-rc2-has-been-released. (called from <top (required)> at /app/config/environment.rb:5)
+2012-08-28T20:26:49+00:00 app[web.1]: DEPRECATION WARNING: You have Rails 2.3-style plugins in vendor/plugins! Support for these plugins will be removed in Rails 4.0. Move them out and bundle them in your Gemfile, or fold them in to your app as lib/myplugin/* and config/initializers/myplugin.rb. See the release notes for more on this: http://weblog.rubyonrails.org/2012/1/4/rails-3-2-0-rc2-has-been-released. (called from <top (required)> at /app/config/environment.rb:5)
+2012-08-28T20:26:52+00:00 app[web.1]: => Booting WEBrick
+2012-08-28T20:26:52+00:00 app[web.1]: => Rails 3.2.7 application starting in production on http://0.0.0.0:41758
+2012-08-28T20:26:52+00:00 app[web.1]: => Call with -d to detach
+2012-08-28T20:26:52+00:00 app[web.1]: => Ctrl-C to shutdown server
+2012-08-28T20:26:52+00:00 app[web.1]: Connecting to database specified by DATABASE_URL
+2012-08-28T20:26:52+00:00 app[web.1]: [2012-08-28 20:26:52] INFO  WEBrick 1.3.1
+2012-08-28T20:26:52+00:00 app[web.1]: [2012-08-28 20:26:52] INFO  ruby 1.9.2 (2011-07-09) [x86_64-linux]
+2012-08-28T20:26:52+00:00 app[web.1]: [2012-08-28 20:26:52] INFO  WEBrick::HTTPServer#start: pid=2 port=41758
+2012-08-28T20:26:53+00:00 heroku[web.1]: State changed from starting to up
+2012-08-28T20:26:54+00:00 heroku[api]: Add TWITTER_SECRET config by emacadie@gmail.com
+2012-08-28T20:26:54+00:00 heroku[api]: Release v7 created by emacadie@gmail.com
+2012-08-28T20:26:54+00:00 heroku[web.1]: State changed from up to starting
+2012-08-28T20:26:56+00:00 heroku[web.1]: Starting process with command `bundle exec rails server -p 32529`
+2012-08-28T20:26:57+00:00 heroku[web.1]: Error R12 (Exit timeout) -> At least one process failed to exit within 10 seconds of SIGTERM
+2012-08-28T20:26:57+00:00 heroku[web.1]: Stopping remaining processes with SIGKILL
+2012-08-28T20:26:58+00:00 heroku[web.1]: Stopping all processes with SIGTERM
+2012-08-28T20:26:59+00:00 heroku[web.1]: Process exited with status 137
+2012-08-28T20:26:59+00:00 app[web.1]: [2012-08-28 20:26:59] ERROR SignalException: SIGTERM
+2012-08-28T20:26:59+00:00 app[web.1]: 	/usr/local/lib/ruby/1.9.1/webrick/server.rb:90:in `select'
+2012-08-28T20:26:59+00:00 app[web.1]: DEPRECATION WARNING: You have Rails 2.3-style plugins in vendor/plugins! Support for these plugins will be removed in Rails 4.0. Move them out and bundle them in your Gemfile, or fold them in to your app as lib/myplugin/* and config/initializers/myplugin.rb. See the release notes for more on this: http://weblog.rubyonrails.org/2012/1/4/rails-3-2-0-rc2-has-been-released. (called from <top (required)> at /app/config/environment.rb:5)
+2012-08-28T20:26:59+00:00 app[web.1]: DEPRECATION WARNING: You have Rails 2.3-style plugins in vendor/plugins! Support for these plugins will be removed in Rails 4.0. Move them out and bundle them in your Gemfile, or fold them in to your app as lib/myplugin/* and config/initializers/myplugin.rb. See the release notes for more on this: http://weblog.rubyonrails.org/2012/1/4/rails-3-2-0-rc2-has-been-released. (called from <top (required)> at /app/config/environment.rb:5)
+2012-08-28T20:27:03+00:00 app[web.1]: => Booting WEBrick
+2012-08-28T20:27:03+00:00 app[web.1]: => Call with -d to detach
+2012-08-28T20:27:03+00:00 app[web.1]: => Rails 3.2.7 application starting in production on http://0.0.0.0:32529
+2012-08-28T20:27:03+00:00 app[web.1]: => Ctrl-C to shutdown server
+2012-08-28T20:27:03+00:00 app[web.1]: Connecting to database specified by DATABASE_URL
+2012-08-28T20:27:03+00:00 app[web.1]: [2012-08-28 20:27:03] INFO  WEBrick 1.3.1
+2012-08-28T20:27:03+00:00 app[web.1]: [2012-08-28 20:27:03] INFO  ruby 1.9.2 (2011-07-09) [x86_64-linux]
+2012-08-28T20:27:03+00:00 app[web.1]: [2012-08-28 20:27:03] INFO  WEBrick::HTTPServer#start: pid=2 port=32529
+2012-08-28T20:27:04+00:00 heroku[web.1]: State changed from starting to up
+2012-08-28T20:27:08+00:00 heroku[web.1]: Error R12 (Exit timeout) -> At least one process failed to exit within 10 seconds of SIGTERM
+2012-08-28T20:27:08+00:00 heroku[web.1]: Stopping remaining processes with SIGKILL
+2012-08-28T20:27:10+00:00 heroku[web.1]: Process exited with status 137
+2012-08-28T20:31:05+00:00 heroku[api]: Add scheduler:standard add-on by emacadie@gmail.com
+2012-08-28T20:31:05+00:00 heroku[api]: Release v8 created by emacadie@gmail.com
+2012-08-28T20:31:05+00:00 heroku[web.1]: State changed from up to starting
+2012-08-28T20:31:07+00:00 heroku[web.1]: Starting process with command `bundle exec rails server -p 49546`
+2012-08-28T20:31:09+00:00 heroku[web.1]: Stopping all processes with SIGTERM
+2012-08-28T20:31:09+00:00 app[web.1]: [2012-08-28 20:31:09] ERROR SignalException: SIGTERM
+2012-08-28T20:31:09+00:00 app[web.1]: 	/usr/local/lib/ruby/1.9.1/webrick/server.rb:90:in `select'
+2012-08-28T20:31:11+00:00 app[web.1]: DEPRECATION WARNING: You have Rails 2.3-style plugins in vendor/plugins! Support for these plugins will be removed in Rails 4.0. Move them out and bundle them in your Gemfile, or fold them in to your app as lib/myplugin/* and config/initializers/myplugin.rb. See the release notes for more on this: http://weblog.rubyonrails.org/2012/1/4/rails-3-2-0-rc2-has-been-released. (called from <top (required)> at /app/config/environment.rb:5)
+2012-08-28T20:31:11+00:00 app[web.1]: DEPRECATION WARNING: You have Rails 2.3-style plugins in vendor/plugins! Support for these plugins will be removed in Rails 4.0. Move them out and bundle them in your Gemfile, or fold them in to your app as lib/myplugin/* and config/initializers/myplugin.rb. See the release notes for more on this: http://weblog.rubyonrails.org/2012/1/4/rails-3-2-0-rc2-has-been-released. (called from <top (required)> at /app/config/environment.rb:5)
+2012-08-28T20:31:13+00:00 heroku[web.1]: Stopping all processes with SIGTERM
+2012-08-28T20:31:14+00:00 app[web.1]: => Booting WEBrick
+2012-08-28T20:31:14+00:00 app[web.1]: => Call with -d to detach
+2012-08-28T20:31:14+00:00 app[web.1]: => Rails 3.2.7 application starting in production on http://0.0.0.0:49546
+2012-08-28T20:31:14+00:00 app[web.1]: => Ctrl-C to shutdown server
+2012-08-28T20:31:14+00:00 app[web.1]: Connecting to database specified by DATABASE_URL
+2012-08-28T20:31:14+00:00 app[web.1]: [2012-08-28 20:31:14] INFO  WEBrick 1.3.1
+2012-08-28T20:31:14+00:00 app[web.1]: [2012-08-28 20:31:14] INFO  ruby 1.9.2 (2011-07-09) [x86_64-linux]
+2012-08-28T20:31:14+00:00 app[web.1]: [2012-08-28 20:31:14] INFO  WEBrick::HTTPServer#start: pid=2 port=49546
+2012-08-28T20:31:15+00:00 app[web.1]: 	/usr/local/lib/ruby/1.9.1/webrick/server.rb:90:in `select'
+2012-08-28T20:31:15+00:00 app[web.1]: [2012-08-28 20:31:15] ERROR SignalException: SIGTERM
+2012-08-28T20:31:15+00:00 heroku[web.1]: State changed from starting to up
+2012-08-28T20:31:20+00:00 heroku[web.1]: Error R12 (Exit timeout) -> At least one process failed to exit within 10 seconds of SIGTERM
+2012-08-28T20:31:20+00:00 heroku[web.1]: Stopping remaining processes with SIGKILL
+2012-08-28T20:31:22+00:00 heroku[web.1]: Error R12 (Exit timeout) -> At least one process failed to exit within 10 seconds of SIGTERM
+2012-08-28T20:31:22+00:00 heroku[web.1]: Stopping remaining processes with SIGKILL
+2012-08-28T20:31:23+00:00 heroku[web.1]: Process exited with status 137
+2012-08-28T20:32:19+00:00 heroku[api]: Starting process with command `bundle exec rake ping_sites` by emacadie@gmail.com
+2012-08-28T20:32:22+00:00 heroku[run.1]: Awaiting client
+2012-08-28T20:32:22+00:00 heroku[run.1]: Starting process with command `bundle exec rake ping_sites`
+2012-08-28T20:32:22+00:00 heroku[run.1]: State changed from starting to up
+2012-08-28T20:32:27+00:00 heroku[run.1]: Client connection closed. Sending SIGHUP to all processes
+2012-08-28T20:32:28+00:00 heroku[run.1]: Process exited with status 1
+2012-08-28T20:32:28+00:00 heroku[run.1]: State changed from up to complete
+2012-08-28T20:32:58+00:00 app[web.1]: 
+2012-08-28T20:32:58+00:00 app[web.1]: 
+2012-08-28T20:32:58+00:00 app[web.1]: Started GET "/" for 67.162.77.183 at 2012-08-28 20:32:58 +0000
+2012-08-28T20:32:58+00:00 app[web.1]: Processing by HomeController#index as HTML
+2012-08-28T20:32:58+00:00 app[web.1]: Completed 500 Internal Server Error in 96ms
+2012-08-28T20:32:58+00:00 app[web.1]: 
+2012-08-28T20:32:58+00:00 app[web.1]: ActiveRecord::StatementInvalid (PG::Error: ERROR:  relation "users" does not exist
+2012-08-28T20:32:58+00:00 app[web.1]: LINE 4:              WHERE a.attrelid = '"users"'::regclass
+2012-08-28T20:32:58+00:00 app[web.1]:                                         ^
+2012-08-28T20:32:58+00:00 app[web.1]: :             SELECT a.attname, format_type(a.atttypid, a.atttypmod), d.adsrc, a.attnotnull
+2012-08-28T20:32:58+00:00 app[web.1]:               FROM pg_attribute a LEFT JOIN pg_attrdef d
+2012-08-28T20:32:58+00:00 app[web.1]:                 ON a.attrelid = d.adrelid AND a.attnum = d.adnum
+2012-08-28T20:32:58+00:00 app[web.1]:              WHERE a.attrelid = '"users"'::regclass
+2012-08-28T20:32:58+00:00 app[web.1]:                AND a.attnum > 0 AND NOT a.attisdropped
+2012-08-28T20:32:58+00:00 app[web.1]:              ORDER BY a.attnum
+2012-08-28T20:32:58+00:00 app[web.1]: ):
+2012-08-28T20:32:58+00:00 app[web.1]:   app/controllers/home_controller.rb:3:in `index'
+2012-08-28T20:32:58+00:00 app[web.1]: 
+2012-08-28T20:32:58+00:00 app[web.1]: 
+2012-08-28T20:32:58+00:00 heroku[router]: GET floating-cliffs-3782.herokuapp.com/ dyno=web.1 queue=0 wait=0ms service=228ms status=500 bytes=643
+2012-08-28T20:32:58+00:00 heroku[router]: GET floating-cliffs-3782.herokuapp.com/favicon.ico dyno=web.1 queue=0 wait=0ms service=11ms status=200 bytes=0

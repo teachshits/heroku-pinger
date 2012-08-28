@@ -41,7 +41,9 @@ describe WebsitesController do
     { :user_id => 1,
       :url => "http://valid-url-0000.herokuapp.com/users/1/edit",
       :failed_tries => 0,
-      :successful_tries => 1
+      :successful_tries => 1,
+      :good_site => true,
+      :name => "CNN"
     }
   end
 
@@ -49,7 +51,9 @@ describe WebsitesController do
     { :user_id => 1,
       :url => website_url,
       :failed_tries => 0,
-      :successful_tries => 1
+      :successful_tries => 1,
+      :good_site => true,
+      :name => "CNN"
     }
   end
 

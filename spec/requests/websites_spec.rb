@@ -60,7 +60,7 @@ describe "Websites" do
     it "should contain link to stuff" do
       # not valid here for some reason
       # session[:user_id] = user.id
-      puts "get is: #{self.}
+      
       get websites_path, {}, valid_session_from_user(user.id)
       puts "------ get method: #{self.method(:get).owner} "
       puts "------ response.class: #{response.class}"
