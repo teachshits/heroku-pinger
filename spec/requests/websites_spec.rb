@@ -2,6 +2,7 @@ require 'spec_helper'
 
 # get method: part of get method: ActionDispatch::Integration::Runner
 # response.class: ActionDispatch::TestResponse
+# session in other tests is session is a: ActionController::TestSession
 
 describe "Websites" do
 
@@ -35,6 +36,12 @@ describe "Websites" do
     }
   end
 
+  def valid_session_from_user(user_id)
+    {
+      "user_id" => user_id
+    }
+  end
+
   describe "GET /websites" do
     it "works! (now write some real specs)" do
       # Run the generator again with the --webrat flag if you want to use webrat methods/matchers
@@ -48,6 +55,18 @@ describe "Websites" do
       puts "------ response.class: #{response.class}"
       response.body.should have_content('Listing websites')
       response.body.should_not have_content('New Website') 
+    end
+
+    it "should contain link to stuff" do
+      # not valid here for some reason
+      # session[:user_id] = user.id
+      puts "get is: #{self.}
+      get websites_path, {}, valid_session_from_user(user.id)
+      puts "------ get method: #{self.method(:get).owner} "
+      puts "------ response.class: #{response.class}"
+      response.body.should have_content('Listing websites')
+      response.body.should_not have_content('New Website') 
+      puts "response.body: #{response.body}"
     end
 
     xit "should contain a link to create a website when you are logged in" do

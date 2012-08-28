@@ -148,7 +148,6 @@ describe WebsitesController do
         # puts "valid_session: #{valid_session}"
         # puts "valid_session.class: #{valid_session.class}"
         session[:user_id] = 1
-        puts "session is a: #{session.class}"
         expect {
           post :create, {:website => valid_attributes}, valid_session
         }.to change(Website, :count).by(1)
