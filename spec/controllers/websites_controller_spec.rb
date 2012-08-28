@@ -78,8 +78,32 @@ describe WebsitesController do
   def invalid_session 
     { 
     "user_id" => 5 
-  }
+    }
+  end
+
+  def generate_factory_sites
+    the_sites = Array.new
+    the_sites.push(FactoryGirl.create(:website1))
+    the_sites.push(FactoryGirl.create(:website2))
+    the_sites.push(FactoryGirl.create(:website3))
+    the_sites.push(FactoryGirl.create(:website4))
+    the_sites.push(FactoryGirl.create(:website5))
+    the_sites.push(FactoryGirl.create(:website6))
+    return the_sites
+  end
+
+  def generate_website_hashes
+    site_hashes = Array.new
+    site_hashes.push({:user_id => 1, :url => "http://valid-url-5374.herokuapp.com/users/1/edit", 
+      :minute => 1, :name => "MyString", :summary => "MyText",
+      :failed_tries => 0, :successful_tries => 0})
+    for x in 1..6
+      site_hashes.push({user_id: 1, url: "http://website#{x}.com", 
+        minute: 1, name: "Website #{x}", summary: "This is website #{x}",
+        failed_tries: 0, successful_tries: 0})
     end
+    return site_hashes
+  end
 
   describe "GET index" do
     it "assigns all websites as @websites" do
@@ -88,6 +112,7 @@ describe WebsitesController do
       get :index, {}, valid_session
       assigns(:websites).should eq([website])
     end
+
   end
 
   describe "GET show" do
@@ -102,6 +127,7 @@ describe WebsitesController do
     it "assigns a new website as @website" do
       get :new, {}, valid_session
       assigns(:website).should be_a_new(Website)
+      # puts "Here is method of assigns: #{self.method(:assigns).owner} "
     end
   end
 
@@ -121,10 +147,9 @@ describe WebsitesController do
         # puts "valid_session: #{valid_session}"
         # puts "valid_session.class: #{valid_session.class}"
         session[:user_id] = 1
+        puts "session is a: #{session.class}"
         expect {
-          # ORIG: 
           post :create, {:website => valid_attributes}, valid_session
-          # post :create, {:website => valid_attributes}, session[:user_id]
         }.to change(Website, :count).by(1)
       end
 
@@ -135,37 +160,26 @@ describe WebsitesController do
       end
 
       it "assigns a newly created website as string" do
-        puts "Website.count: #{Website.count}"
-        puts "User.first.number_of_sites: #{User.first}"
+        # puts "Website.count: #{Website.count}"
+        # puts "User.first.number_of_sites: #{User.first}"
         post :create, {:website => valid_attributes}, valid_session
         assigns(:website).should be_a(Website)
         assigns(:website).should be_persisted
-        puts "Website.count: #{Website.count}"
-        puts "User.first.number_of_sites: #{User.first.number_of_sites}"
+        # puts "Website.count: #{Website.count}"
+        # puts "User.first.number_of_sites: #{User.first.number_of_sites}"
       end
 
-      it "creates a few websites" do
-        the_sites = Array.new
-        the_sites.push(Website.new( 
-          :url => "http://website1.com", 
-          :minute => 1, :name => "website1", 
-          :successful_tries => 0, 
-          :failed_tries => 0, 
-          :summary => "this is website 1"))
-        the_sites.push(Website.new( :url => "http://website2.com", :minute => 1, :name => "website2", :user_id => 1, :successful_tries => 0, :failed_tries => 0, :summary => "this is website 2"))
+      it "creates a few websites with FactoryGirl" do
         user = FactoryGirl.create(:user)
         initial_user_num_of_sites = 0
         final_user_num_of_sites = 0
-        # this also works:
-        # @user = User.new( :provider => "twitter", :uid => "12345", :name => "the user")
+        the_sites = generate_factory_sites
         user.save
         # puts "user.id right after save: #{user.id}"
         # valid_session_from_user(user_id)
-        puts "Website.count: #{Website.count}"
-        the_sites.each do |site|
-          # site = FactoryGirl.create(my_site)
-          # post :create, {:website => valid_attributes}, valid_session
-  
+        # puts "Website.count: #{Website.count}"
+        five_sites = the_sites[0..4]
+        five_sites.each do |site|
           post :create, {:website => valid_attributes_from_site(site.url)}, valid_session_from_user(user.id)
           assigns(:website).should be_a(Website)
           assigns(:website).should be_persisted
@@ -174,7 +188,7 @@ describe WebsitesController do
           final_user_num_of_sites += 1
           # puts "-----"
         end
-        final_user_num_of_sites.should == the_sites.length
+        final_user_num_of_sites.should == five_sites.length
         user.reload # got to reload to get the new data
         # puts "In the final place"
         # puts "final_user_num_of_sites: #{final_user_num_of_sites}"
@@ -182,10 +196,129 @@ describe WebsitesController do
         # puts "user.number_of_sites: #{user.number_of_sites}"
         # puts "user.name: #{user.name}"
         # puts "user.id: #{user.id}"
-        user.number_of_sites.should == the_sites.length
+        user.number_of_sites.should == five_sites.length  
+      end
+
+
+      it "only creates five websites with FactoryGirl" do
+        # puts "********************************* starting only creates five websites with FactoryGirl"
+        # puts "Website.count: #{Website.count}"
+        user = FactoryGirl.create(:user)
+        user.number_of_sites.should == 0
+        sites_delete = Website.all # find_all _by_user_id(user.id)
+        # puts "sites_delete.count: #{sites_delete.count}"
+        sites_delete.each do |s_d|
+          # puts "Website name: #{s_d.name}"
+          s_d.destroy
+        end
+        
+        initial_user_num_of_sites = 0
+        final_user_num_of_sites = 0
+        the_sites = generate_factory_sites
+        user.save
+        # puts "user.id right after save: #{user.id}"
+        # valid_session_from_user(user_id)
+        # puts "Website.count: #{Website.count}"
+        five_sites = the_sites[0..4]
+        five_sites.each do |site|
+          post :create, {:website => valid_attributes_from_site(site.url)}, valid_session_from_user(user.id)
+          assigns(:website).should be_a(Website)
+          assigns(:website).should be_persisted
+          # puts "-- Website.count: #{Website.count}"
+          # puts "-- Website.maximum('id'): #{Website.maximum("id")}"
+          # puts "-- User.first.number_of_sites: #{user.number_of_sites}"
+          final_user_num_of_sites += 1
+          user.reload
+          # puts "-----"
+        end
+        final_user_num_of_sites.should == five_sites.length
+        user.reload # got to reload to get the new data
+        # puts "In the final place"
+        # puts "final_user_num_of_sites: #{final_user_num_of_sites}"
+        # puts "the_sites.length: #{the_sites.length}"
+        # puts "user.number_of_sites: #{user.number_of_sites}"
+        # puts "user.name: #{user.name}"
+        # puts "user.id: #{user.id}"
+        user.number_of_sites.should == five_sites.length  
+
+        post :create, {:website => valid_attributes_from_site(the_sites.last.url)}, valid_session_from_user(user.id)
+        assigns(:website).should be_a(Website)
+        assigns(:website).should_not be_persisted
+        # puts "Website.count: #{Website.count}"
+        # puts "User.first.number_of_sites: #{user.number_of_sites}"
+        final_user_num_of_sites += 1
+        # puts "-----"
+        user.reload
+        # puts "user.number_of_sites: #{user.number_of_sites}"
+        user.number_of_sites.should == five_sites.length  
+        user.number_of_sites.should == 5
+        some_sites = Website.find_all_by_user_id(user.id)
+        # puts "some_sites.count: #{some_sites.count}"
+        # it equals 11 because FactoryGirl creates some extra sites, which it really should not
+        # time for ANOTHER test
+        # some_sites.count.should == 5
         
       end
-      
+
+      it "only creates five websites with hashes" do
+        # puts "********************************* starting only creates five websites with hashes"
+        # puts "Website.count: #{Website.count}"
+        user = FactoryGirl.create(:user)
+        user.number_of_sites.should == 0
+        sites_delete = Website.all # find_all _by_user_id(user.id)
+        # puts "sites_delete.count: #{sites_delete.count}"
+        sites_delete.each do |s_d|
+          # puts "Website name: #{s_d.name}"
+          s_d.destroy
+        end
+        
+        initial_user_num_of_sites = 0
+        final_user_num_of_sites = 0
+        the_site_hashes = generate_website_hashes
+        user.save
+        # puts "user.id right after save: #{user.id}"
+        # valid_session_from_user(user_id)
+        # puts "Website.count: #{Website.count}"
+        five_sites = the_site_hashes[0..4]
+        five_sites.each do |site|
+          post :create, {:website => valid_attributes_from_site(site[:url])}, valid_session_from_user(user.id)
+          assigns(:website).should be_a(Website)
+          assigns(:website).should be_persisted
+          # puts "-- Website.count: #{Website.count}"
+          # puts "-- Website.maximum('id'): #{Website.maximum("id")}"
+          # puts "-- User.first.number_of_sites: #{user.number_of_sites}"
+          final_user_num_of_sites += 1
+          user.reload
+          # puts "-----"
+        end
+        final_user_num_of_sites.should == five_sites.length
+        user.reload # got to reload to get the new data
+        # puts "In the final place"
+        # puts "final_user_num_of_sites: #{final_user_num_of_sites}"
+        # puts "the_sites.length: #{the_sites.length}"
+        # puts "user.number_of_sites: #{user.number_of_sites}"
+        # puts "user.name: #{user.name}"
+        # puts "user.id: #{user.id}"
+        user.number_of_sites.should == five_sites.length  
+
+        post :create, {:website => valid_attributes_from_site(the_site_hashes.last[:url])}, valid_session_from_user(user.id)
+        assigns(:website).should be_a(Website)
+        assigns(:website).should_not be_persisted
+        # puts "Website.count: #{Website.count}"
+        # puts "User.first.number_of_sites: #{user.number_of_sites}"
+        final_user_num_of_sites += 1
+        # puts "-----"
+        user.reload
+        # puts "user.number_of_sites: #{user.number_of_sites}"
+        user.number_of_sites.should == five_sites.length  
+        user.number_of_sites.should == 5
+        some_sites = Website.find_all_by_user_id(user.id)
+        # puts "some_sites.count: #{some_sites.count}"
+        # it equals 11 because FactoryGirl creates some extra sites, which it really should not
+        # time for ANOTHER test
+        # some_sites.count.should == 5
+        
+      end
 
 =begin
       it "adfdfdfdf assigns a newly created website as @website" do
@@ -268,6 +401,148 @@ describe WebsitesController do
         delete :destroy, {:id => website.to_param}, valid_session
       }.to change(Website, :count).by(-1)
     end
+
+    it "decrements the user count after deleting" do
+      site_hashes = generate_website_hashes
+      user = FactoryGirl.create(:user)
+      user.number_of_sites.should == 0
+      final_user_num_of_sites = 0
+      # ---------------------------------------------
+      # puts "Website.count: #{Website.count}"
+      five_sites = site_hashes[0..4]
+      five_sites.each do |site|
+        post :create, {:website => valid_attributes_from_site(site[:url])}, valid_session_from_user(user.id)
+        x = assigns(:website).should be_a(Website)
+        y = assigns(:website).should be_persisted
+        # puts "x is a #{x.class}"
+        # puts "Y is a #{y.class}"
+        # puts "-- Website.count: #{Website.count}"
+        # puts "-- Website.maximum('id'): #{Website.maximum("id")}"
+        # puts "-- User.first.number_of_sites: #{user.number_of_sites}"
+        final_user_num_of_sites += 1
+        user.reload
+        user.number_of_sites.should == final_user_num_of_sites
+        # puts "-----"
+      end
+      
+      # now delete them
+      final_user_num_of_sites = 0
+      five_sites = Website.find_all_by_user_id(user.id)
+      final_user_num_of_sites = five_sites.size
+      five_sites.each do |site|
+        delete :destroy, {:id => site.id}, valid_session_from_user(user.id)
+        final_user_num_of_sites -= 1
+        user.reload
+        # puts "-- after destroying: final_user_num_of_sites: #{final_user_num_of_sites}"
+        # puts "-- after destroying: user.number_of_sites: #{user.number_of_sites}"
+        user.number_of_sites.should == final_user_num_of_sites
+      end
+    end
+
+    xit "prevents a user from deleting another user's website" do
+      site_hashes = generate_website_hashes
+      user = FactoryGirl.create(:user)
+      user2 = FactoryGirl.create(:user2)
+      # puts "user.id: #{user.id}"
+      # puts "user2.id: #{user2.id}"
+      user.number_of_sites.should == 0
+      final_user_num_of_sites = 0
+      temp_var = 0
+      # ---------------------------------------------
+      # puts "Website.count: #{Website.count}"
+      five_sites = site_hashes[0..4]
+      five_sites.each do |site|
+        post :create, {:website => valid_attributes_from_site(site[:url])}, valid_session_from_user(user2.id)
+        assigns(:website).should be_a(Website)
+        assigns(:website).should be_persisted
+        # puts "x is a #{x.class}"
+        # puts "Y is a #{y.class}"
+        # puts "-- Website.count: #{Website.count}"
+        # puts "-- Website.maximum('id'): #{Website.maximum("id")}"
+        # puts "-- User.first.number_of_sites: #{user2.number_of_sites}"
+        final_user_num_of_sites += 1
+        temp_var += 1
+        user2.reload
+        user2.number_of_sites.should == final_user_num_of_sites
+        # puts "-----"
+      end
+      # ---------------------------------------------
+      # now delete them
+      final_user_num_of_sites = 0
+      five_sites = Website.find_all_by_user_id(user2.id)
+      final_user_num_of_sites = five_sites.size
+      # puts "at beginning: Website.find_all_by_user_id(user2.id).size: #{Website.find_all_by_user_id(user2.id).size}"
+      # puts "at beginning: final_user_num_of_sites: #{final_user_num_of_sites}"
+      five_sites.each do |site|
+        session[:user_id] = 0
+        delete :destroy, {:id => site.id}, valid_session_from_user(0)
+        # puts "in loop: Website.find_all_by_user_id(user2.id).size: #{Website.find_all_by_user_id(user2.id).size}"
+        # puts "in loop: final_user_num_of_sites: #{final_user_num_of_sites}"
+        Website.find_all_by_user_id(user.id).size.should == final_user_num_of_sites
+        session[:user_id] = user2.id
+        delete :destroy, {:id => site.id}, valid_session_from_user(user2.id)
+        Website.find_all_by_user_id(user.id).size.should == (final_user_num_of_sites - 1)
+        
+        final_user_num_of_sites -= 1
+        user2.reload
+        # puts "-- after destroying: final_user_num_of_sites: #{final_user_num_of_sites}"
+        # puts "-- after destroying: user2.number_of_sites: #{user2.number_of_sites}"
+        user2.number_of_sites.should == final_user_num_of_sites
+      end
+    end
+    
+    it "again tries to prevent a user from deleting another user's website" do
+      site_hashes = generate_website_hashes
+      user  = FactoryGirl.create(:user)
+      user2 = FactoryGirl.create(:user2)
+      # puts "user.id: #{user.id}"
+      # puts "user2.id: #{user2.id}"
+      user.number_of_sites.should == 0
+      final_user_num_of_sites = 0
+      temp_var = 0
+      # ---------------------------------------------
+      # puts "Website.count: #{Website.count}"
+      five_sites = site_hashes[0..4]
+      # five_sites.each do |site|
+        post :create, {:website => valid_attributes_from_site(site_hashes[0][:url])}, valid_session_from_user(user2.id)
+        assigns(:website).should be_a(Website)
+        assigns(:website).should be_persisted
+        
+        # puts "-- Website.count: #{Website.count}"
+        # puts "-- Website.maximum('id'): #{Website.maximum("id")}"
+        # puts "-- User.first.number_of_sites: #{user2.number_of_sites}"
+        final_user_num_of_sites += 1
+        temp_var += 1
+        user2.reload
+        user2.number_of_sites.should == final_user_num_of_sites
+        # puts "-----"
+      # end
+      # ---------------------------------------------
+      the_site_array = Website.find_all_by_user_id(user2.id)
+      the_site = the_site_array.first
+      the_site.user_id = user.id
+      the_site.save
+      # puts "Website.find_all_by_user_id(user.id).size: #{Website.find_all_by_user_id(user.id).size}"
+      # puts "Website.find_all_by_user_id(user2.id).size: #{Website.find_all_by_user_id(user2.id).size}"
+      delete :destroy, {:id => the_site.id}, valid_session_from_user(user2.id)
+      Website.find_all_by_user_id(user.id).size.should == 1
+      # puts "tried to destroy with user2.id"
+      # puts "Website.find_all_by_user_id(user.id).size: #{Website.find_all_by_user_id(user.id).size}"
+      # puts "Website.find_all_by_user_id(user2.id).size: #{Website.find_all_by_user_id(user2.id).size}"
+      # puts "\nNow, let's change it back"
+      the_site.user_id = user2.id
+      the_site.save
+      Website.find_all_by_user_id(user2.id).size.should == 1
+      # puts "Website.find_all_by_user_id(user.id).size: #{Website.find_all_by_user_id(user.id).size}"
+      # puts "Website.find_all_by_user_id(user2.id).size: #{Website.find_all_by_user_id(user2.id).size}"
+      delete :destroy, {:id => the_site.id}, valid_session_from_user(user2.id)
+      # puts "tried to destroy with user2.id"
+      # puts "Website.find_all_by_user_id(user.id).size: #{Website.find_all_by_user_id(user.id).size}"
+      # puts "Website.find_all_by_user_id(user2.id).size: #{Website.find_all_by_user_id(user2.id).size}"
+      Website.find_all_by_user_id(user2.id).size.should == 0
+      # ---------------------------------------------
+    end
+
 
     it "redirects to the websites list" do
       website = Website.create! valid_attributes

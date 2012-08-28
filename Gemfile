@@ -10,6 +10,7 @@ gem 'jquery-rails'
 gem "rspec-rails", ">= 2.10.1", :group => [:development, :test]
 gem "database_cleaner", ">= 0.8.0", :group => :test
 
+gem "pry", :group => [:development]
 gem "factory_girl_rails", ">= 3.3.0", :group => [:development, :test]
 gem "email_spec", ">= 1.2.1", :group => :test
 gem "cucumber-rails", ">= 1.3.0", :group => :test, :require => false

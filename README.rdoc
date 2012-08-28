@@ -1,4 +1,29 @@
 == Welcome to Rails
 
-An app that will ping Heroku sites that will run on Heroku
+An app that will ping Heroku sites that will run on Heroku  
 
+This app uses rvm to manage the gemset. Edit the .rvmrc file if you need to.    
+
+To get it to run:  
+Run "bundle install"  
+  
+Set up postgresql  
+edit config/database.yml  
+change all instances of "ericm" to your username  
+rake db:create:all  
+rake db:migrate  
+rake db:test:prepare  
+
+
+Also, this uses OmniAuth and Twitter for authenticaion. So you will need to register this as a Twitter app. The key and secret are in 
+the file config/initializers/omniauth.rb, and you will need to save them as environmental variables:   
+provider :twitter, ENV["TWITTER_KEY"], ENV["TWITTER_SECRET"]    
+
+So you will need to set that stuff up before you actually run it.   
+
+Right now there are a lot of comments and calls to puts, particularly in the tests. I am trying to see what the tests 
+are doing. It's great that Ruby and Rails do so much out of the box, but sometimes convenience crosses the line into voodoo.   
+
+For example, some of the tests have stuff like this: post :create, {:website => valid_attributes}, valid_session   
+
+How do I get the object that symbol represents? At this point, I would still like to query stuff in the tests to figure out what is going on.      

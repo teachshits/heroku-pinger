@@ -2,7 +2,6 @@
 
 FactoryGirl.define do
   factory :website do
-    # url "MyString"
     url "http://valid-url-5374.herokuapp.com/users/1/edit"
     minute 1
     name "MyString"

@@ -1,13 +1,11 @@
 class WebsitesController < ApplicationController
 
-  before_filter :signed_in_user,   only: [:new, :create, :update, :destroy]
-
-
+  before_filter :signed_in_user, only: [:new, :create, :update, :destroy]
 
   # GET /websites
   # GET /websites.json
   def index
-    @websites = Website.all
+    @websites = Website.order("name ASC")
 
     respond_to do |format|
       format.html # index.html.erb
@@ -61,18 +59,18 @@ class WebsitesController < ApplicationController
     @website.url = url
     @website.name = name
     @website.summary = summary
-    @website.user_id = user_id
+    @website.user_id = current_user.id
     @website.failed_tries = 0
     @website.successful_tries = 0
+    @website.good_site = true
 
     respond_to do |format|
-      if @website.save
-        user = @website.user
-        user.number_of_sites += 1
-        user.save
-        # puts "user.number_of_sites in controller: #{user.number_of_sites}"
-        # puts "user.id in controller: #{user.id}"
-        # puts "user.name in controller: #{user.name}"
+      if current_user.number_of_sites < 5 &&  @website.save
+        current_user.number_of_sites += 1
+        current_user.save
+        # puts "user.number_of_sites in controller: #{current_user.number_of_sites}"
+        # puts "user.id in controller: #{current_user.id}"
+        # puts "user.name in controller: #{current_user.name}"
         format.html { redirect_to @website, notice: 'Website was successfully created.' }
         format.json { render json: @website, status: :created, location: @website }
       else
@@ -102,11 +100,20 @@ class WebsitesController < ApplicationController
   # DELETE /websites/1.json
   def destroy
     @website = Website.find(params[:id])
-    @website.destroy
-
+    user_id = current_user.id
+    # puts "trying to delete: @website.user_id: #{@website.user_id} current_user.id: #{current_user.id}"
     respond_to do |format|
-      format.html { redirect_to websites_url }
-      format.json { head :no_content }
+      if @website.user_id != current_user.id
+        # puts "trying to delete with wrong id: @website.user_id: #{@website.user_id} current_user.id: #{current_user.id}"
+        format.html { redirect_to websites_url , notice: 'Website entry owned by different user.' }
+        format.json { render json: @website.errors, status: :unprocessable_entity }
+      elsif @website.destroy
+        
+        current_user.number_of_sites -= 1
+        current_user.save
+        format.html { redirect_to websites_url , notice: 'Website was successfully deleted.' }
+        format.json { head :no_content }
+      end
     end
   end
 

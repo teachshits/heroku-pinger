@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   def self.create_with_omniauth(auth)
     create! do |user|
       user.number_of_sites = 0
+      user.is_admin = false
       user.provider = auth['provider']
       user.uid = auth['uid']
       if auth['info']
