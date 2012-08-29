@@ -13,6 +13,14 @@ class User < ActiveRecord::Base
       end
     end
   end
+
+  def is_admin(admin_arg)
+    if admin_arg == true
+      self.is_admin = true
+    else
+      self.is_admin = false
+    end
+  end
   
   validates :name, :presence => true
   validates :uid, :presence => true

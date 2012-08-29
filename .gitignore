@@ -20,4 +20,5 @@ env_vars
 notes.*txt
 tree*txt
 coverage
+h.log*
 #- EOF
