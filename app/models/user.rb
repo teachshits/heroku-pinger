@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  attr_accessible :email, :name, :provider, :uid, :number_of_sites, :is_admin
+  attr_accessible :email, :name, :provider, :uid, :number_of_sites
   
   def self.create_with_omniauth(auth)
     create! do |user|
@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
       end
     end
   end
-  
+ 
   def is_admin=(bool_arg)
     if bool_arg == true
       self.is_admin = true
