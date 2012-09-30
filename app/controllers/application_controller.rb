@@ -32,7 +32,8 @@ class ApplicationController < ActionController::Base
     end
 
     def can_add_sites?
-      current_user.number_of_sites <= 4 && user_signed_in?
+      # current_user.number_of_sites <= 4 && user_signed_in?
+      # @user.number_of_sites <= 4 && user_signed_in?
     end
 
     def authenticate_user!

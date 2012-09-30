@@ -37,7 +37,7 @@
 </table>
 
 <br />
-<% if user_signed_in? %> <!-- && current_user.number_of_sites <= 4 % -->
+<% if user_signed_in?  && current_user.number_of_sites <= 4 %>
 <!-- % if can_add_sites? % -->
 <%= link_to 'New Website', new_website_path %>
 <% end %>
