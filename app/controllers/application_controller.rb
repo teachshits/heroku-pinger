@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
   helper_method :user_signed_in?
   helper_method :correct_user?
+  helper_method :can_add_sites?
 
   private
     def current_user
@@ -28,6 +29,10 @@ class ApplicationController < ActionController::Base
       unless current_user == @user
         redirect_to root_url, :alert => "Access denied."
       end
+    end
+
+    def can_add_sites?
+      current_user.number_of_sites <= 4 && user_signed_in?
     end
 
     def authenticate_user!

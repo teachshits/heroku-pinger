@@ -21,5 +21,6 @@ notes.*txt
 tree*txt
 coverage
 h.log*
+gem.list*
 *html
 #- EOF
