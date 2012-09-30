@@ -8,17 +8,18 @@ require_relative '../app/models/website'
 
 describe WebsitePinger do
 
-  # before (:each) do
-    # wp = WebsitePinger.instance
-  # end
-  let(:wp) { WebsitePinger.instance }
+  before (:each) do
+    @wp = WebsitePinger.instance
+    # @wp = WebsitePinger.new
+  end
+  # let(:wp) { WebsitePinger.instance }
 =begin
   it "does stuff" do
     puts "This is does stuff"
   end
 =end
   it "tests ping_sites method" do
-    wp.ping_sites
+    @wp.ping_sites
   end
 
 =begin

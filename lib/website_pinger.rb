@@ -2,17 +2,17 @@ class WebsitePinger
   include Singleton
   require 'net/http'
   require 'uri'
-  
+
   def ping_sites
     n = Time.new
     puts "Here is time: #{n}"
     c = Time.new
     time_s = c.to_s
     minute = time_s[14].to_i
-    # puts "about to call Websites.find_all_blah with minute == #{minute}"
+    puts "about to call Websites.find_all_blah with minute == #{minute}"
 
     websites = Website.where("minute = ? AND good_site = ?", minute, true)
-    # puts "websites.size: #{websites.size}"
+    puts "websites.size: #{websites.size}"
     websites.each do |site|
       if Rails.env.development?
         puts "-----"

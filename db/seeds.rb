@@ -5,3 +5,9 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+website = Website.create! url: "http://www.dividends5life.com/", minute: 2, name: "http://www.dividends4life.com/", summary: "http://www.dividends4life.com/", failed_tries: 0, successful_tries: 0, user_id: 8, good_site: true
+
+# user = User.create! :name => 'First User', :email => 'user@example.com', :password => 'please', :password_confirmation => 'please'
+
+

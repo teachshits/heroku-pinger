@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'active_record'
 
 describe Website do
 
@@ -71,5 +72,10 @@ describe Website do
     it { should_not be_valid }
   end
 
+  context "Website Pinger" do
+    it "pings a site" do
+      Website.ping_sites
+    end
+  end
 
 end
