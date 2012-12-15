@@ -69,20 +69,21 @@ describe "Websites" do
       puts "response.body: #{response.body}"
     end
 
-    xit "should contain a link to create a website when you are logged in" do
+    it "should contain a link to create a website when you are logged in" do
 
       # mock_omni_auth
       
-=begin
+# =begin
+      OmniAuth.config.test_mode = true
       OmniAuth.config.mock_auth[:twitter] = {
         'uid' => '12345',
         'provider' => 'twitter',
-        'info' => {
+        # 'info' => {
           'name' => 'Jimmy'
-        }
+        # }
       } 
-=end
-      # OmniAuth.config.add_mock(:twitter, {:uid => '12345'})
+# =end
+      OmniAuth.config.add_mock(:twitter, {:uid => '12345'})
 
       get websites_path, {}, valid_session
       # puts "-----------------------------"

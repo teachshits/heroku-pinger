@@ -1,0 +1,6 @@
+http://ashleshawrites.wordpress.com/2012/07/02/testing-omniauth-creating-mock-data/
+https://github.com/intridea/omniauth/wiki/Integration-Testing
+http://wealsodocookies.com/posts/how-to-test-facebook-login-using-devise-omniauth-rspec-and-capybara
+https://gist.github.com/1200365
+
+This might help: https://github.com/remi/testing-omniauth 

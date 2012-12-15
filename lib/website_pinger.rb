@@ -3,12 +3,15 @@ class WebsitePinger
   require 'net/http'
   require 'uri'
 
-  def ping_sites
-    n = Time.new
-    puts "Here is time: #{n}"
+  def get_minute
     c = Time.new
+    puts "Here is time: #{c}"
     time_s = c.to_s
-    minute = time_s[14].to_i
+    return time_s[14].to_i
+  end
+
+  def ping_sites
+    minute = get_minute
     puts "about to call Websites.find_all_blah with minute == #{minute}"
 
     websites = Website.where("minute = ? AND good_site = ?", minute, true)
