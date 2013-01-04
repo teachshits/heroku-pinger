@@ -50,9 +50,11 @@ describe "Websites" do
     end
 
     it "should not contain link to make a new website" do
+      
       get websites_path
       puts "------ get method: #{self.method(:get).owner} "
       puts "------ response.class: #{response.class}"
+      puts "------ response.body: #{response.body}"
       response.body.should have_content('Listing websites')
       response.body.should_not have_content('New Website') 
     end
@@ -60,13 +62,18 @@ describe "Websites" do
     it "should contain link to stuff" do
       # not valid here for some reason
       # session[:user_id] = user.id
-      
-      get websites_path, {}, valid_session_from_user(user.id)
+      p = SessionProvider.get_session
+      puts "p is a #{p.class}"
+      puts "Inspecting the session: #{p.to_s}"
+      puts "Here is user.id: #{user.id}"
+      visit "/websites"
+      # get websites_path, {}, valid_session_from_user(user.id)
+      # get websites_path, {}, valid_session #_from_user(user.id)
       puts "------ get method: #{self.method(:get).owner} "
       puts "------ response.class: #{response.class}"
-      response.body.should have_content('Listing websites')
-      response.body.should_not have_content('New Website') 
       puts "response.body: #{response.body}"
+      response.body.should have_content('Listing websites')
+      response.body.should have_content('New Website') 
     end
 
     xit "should contain a link to create a website when you are logged in" do
