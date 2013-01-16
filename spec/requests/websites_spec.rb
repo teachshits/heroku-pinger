@@ -51,11 +51,12 @@ describe "Websites" do
 
     it "should not contain link to make a new website" do
       
-      get websites_path
-      puts "------ get method: #{self.method(:get).owner} "
-      puts "------ response.class: #{response.class}"
-      puts "------ response.body: #{response.body}"
-      response.body.should have_content('Listing websites')
+      # get websites_path
+      visit "/websites"
+      # puts "------ get method: #{self.method(:get).owner} "
+      # puts "------ response.class: #{response.class}"
+      # puts "------ response.body: #{response.body}"
+      # response.body.should have_content('Listing websites')
       response.body.should_not have_content('New Website') 
     end
 
@@ -79,7 +80,6 @@ describe "Websites" do
     xit "should contain a link to create a website when you are logged in" do
 
       # mock_omni_auth
-      
 =begin
       OmniAuth.config.mock_auth[:twitter] = {
         'uid' => '12345',
