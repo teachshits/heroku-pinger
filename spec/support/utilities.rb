@@ -1,5 +1,5 @@
 include ApplicationHelper
-
+=begin
 def sign_in(user)
   # visit signin_path
   # fill_in "Email",    with: user.email
@@ -31,4 +31,6 @@ def mock_omni_auth
   }
 
   OmniAuth.config.add_mock(:twitter, {:uid => '12345'})
+
 end
+=end
