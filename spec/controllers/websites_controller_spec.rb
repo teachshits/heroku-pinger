@@ -501,63 +501,6 @@ describe WebsitesController do
 
     end
 
-#-----------------------------------------------------------------
-
-
-    
-    it "again tries to prevent a user from deleting another user's website" do
-      site_hashes = generate_website_hashes
-      user  = FactoryGirl.create(:user)
-      user2 = FactoryGirl.create(:user2)
-      # puts "user.id: #{user.id}"
-      # puts "user2.id: #{user2.id}"
-      user.number_of_sites.should == 0
-      final_user_num_of_sites = 0
-      temp_var = 0
-      # ---------------------------------------------
-      # puts "Website.count: #{Website.count}"
-      five_sites = site_hashes[0..4]
-      # five_sites.each do |site|
-        post :create, {:website => valid_attributes_from_site(site_hashes[0][:url])}, valid_session_from_user(user2.id)
-        assigns(:website).should be_a(Website)
-        assigns(:website).should be_persisted
-        
-        # puts "-- Website.count: #{Website.count}"
-        # puts "-- Website.maximum('id'): #{Website.maximum("id")}"
-        # puts "-- User.first.number_of_sites: #{user2.number_of_sites}"
-        final_user_num_of_sites += 1
-        temp_var += 1
-        user2.reload
-        user2.number_of_sites.should == final_user_num_of_sites
-        # puts "-----"
-      # end
-      # ---------------------------------------------
-      the_site_array = Website.find_all_by_user_id(user2.id)
-      the_site = the_site_array.first
-      the_site.user_id = user.id
-      the_site.save
-      # puts "Website.find_all_by_user_id(user.id).size: #{Website.find_all_by_user_id(user.id).size}"
-      # puts "Website.find_all_by_user_id(user2.id).size: #{Website.find_all_by_user_id(user2.id).size}"
-      delete :destroy, {:id => the_site.id}, valid_session_from_user(user2.id)
-      Website.find_all_by_user_id(user.id).size.should == 1
-      # puts "tried to destroy with user2.id"
-      # puts "Website.find_all_by_user_id(user.id).size: #{Website.find_all_by_user_id(user.id).size}"
-      # puts "Website.find_all_by_user_id(user2.id).size: #{Website.find_all_by_user_id(user2.id).size}"
-      # puts "\nNow, let's change it back"
-      the_site.user_id = user2.id
-      the_site.save
-      Website.find_all_by_user_id(user2.id).size.should == 1
-      # puts "Website.find_all_by_user_id(user.id).size: #{Website.find_all_by_user_id(user.id).size}"
-      # puts "Website.find_all_by_user_id(user2.id).size: #{Website.find_all_by_user_id(user2.id).size}"
-      delete :destroy, {:id => the_site.id}, valid_session_from_user(user2.id)
-      # puts "tried to destroy with user2.id"
-      # puts "Website.find_all_by_user_id(user.id).size: #{Website.find_all_by_user_id(user.id).size}"
-      # puts "Website.find_all_by_user_id(user2.id).size: #{Website.find_all_by_user_id(user2.id).size}"
-      Website.find_all_by_user_id(user2.id).size.should == 0
-      # ---------------------------------------------
-    end
-
-
     it "redirects to the websites list" do
       website = Website.create! valid_attributes
       delete :destroy, {:id => website.to_param}, valid_session

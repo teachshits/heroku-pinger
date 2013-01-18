@@ -104,7 +104,7 @@ class WebsitesController < ApplicationController
     puts "trying to delete: @website.user_id: #{@website.user_id} current_user.id: #{current_user.id}"
     respond_to do |format|
       if @website.user_id != current_user.id
-        # puts "trying to delete with wrong id: @website.user_id: #{@website.user_id} current_user.id: #{current_user.id}"
+        puts "trying to delete with wrong id: @website.user_id: #{@website.user_id} current_user.id: #{current_user.id}"
         format.html { redirect_to websites_url , notice: 'Website entry owned by different user.' }
         format.json { render json: @website.errors, status: :unprocessable_entity }
       elsif @website.destroy
