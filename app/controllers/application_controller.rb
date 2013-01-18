@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
       begin
         # puts "*********** in current_user"
         # logger.info session.inspect
-        # puts "#{session.inspect}"
+        # puts "Session: #{session.inspect}"
         # puts "Gonna try to get the user"
         
         @current_user ||= User.find(session[:user_id]) if session[:user_id]

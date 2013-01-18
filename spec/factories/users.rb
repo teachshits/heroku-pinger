@@ -16,4 +16,13 @@ FactoryGirl.define do
     id 2
     number_of_sites 0
   end
+
+  factory :user_create, class: User do
+    provider "twitter"
+    uid "12346"
+    name "Jimmy 2"
+    
+    number_of_sites 0
+  end
+
 end
