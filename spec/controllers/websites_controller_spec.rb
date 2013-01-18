@@ -479,6 +479,7 @@ describe WebsitesController do
       # puts "user_creator.number_of_sites.should: #{user_creator.number_of_sites}"
       # ---------------------------------------------
       puts "Website.count before destroy: #{Website.count}"
+      ws_count_before_destroy = Website.count
       final_user_num_of_sites = 0
       five_sites = Website.find_all_by_user_id(3)
       
@@ -494,115 +495,15 @@ describe WebsitesController do
       # user_creator.reload
       # user_creator_sites = Website.find_all_by_user_id(user_creator.id).size
       # puts "user_creator_sites: #{user_creator_sites}"
-      # puts "Website.count: #{Website.count}"
+      puts "Website.count after destroy: #{Website.count}"
+      ws_count_after_destroy = Website.count
+      ws_count_before_destroy.should == ws_count_after_destroy
 
-
-=begin    
-      # now delete them
-      
-      final_user_num_of_sites = 0
-      five_sites = Website.find_all_by_user_id(user2.id)
-      final_user_num_of_sites = five_sites.size
-      # puts "at beginning: Website.find_all_by_user_id(user2.id).size: #{Website.find_all_by_user_id(user2.id).size}"
-      # puts "at beginning: final_user_num_of_sites: #{final_user_num_of_sites}"
-      five_sites.each do |site|
-        session[:user_id] = 0
-        delete :destroy, {:id => site.id}, valid_session_from_user(0)
-        # puts "in loop: Website.find_all_by_user_id(user2.id).size: #{Website.find_all_by_user_id(user2.id).size}"
-        # puts "in loop: final_user_num_of_sites: #{final_user_num_of_sites}"
-        # Website.find_all_by_user_id(user.id).size.should == final_user_num_of_sites
-        session[:user_id] = user2.id
-        delete :destroy, {:id => site.id}, valid_session_from_user(user2.id)
-        Website.find_all_by_user_id(user.id).size.should == (final_user_num_of_sites - 1)
-        
-        final_user_num_of_sites -= 1
-        user2.reload
-        # puts "-- after destroying: final_user_num_of_sites: #{final_user_num_of_sites}"
-        # puts "-- after destroying: user2.number_of_sites: #{user2.number_of_sites}"
-        user2.number_of_sites.should == final_user_num_of_sites
-      end
-=end
     end
 
 #-----------------------------------------------------------------
 
-    xit "prevents a user from deleting another user's website" do
-      site_hashes = generate_website_hashes
-      user_creator = FactoryGirl.create(:user_create)
-      user_deleter = FactoryGirl.create(:user)
-      puts "user_creator.id: #{user_creator.id}"
-      puts "user_deleter.id: #{user_deleter.id}"
-      
-      user_deleter.number_of_sites.should == 0
-      final_user_num_of_sites = 0
-      temp_var = 0
-      # ---------------------------------------------
-      puts "Website.count: #{Website.count}"
-      five_sites = site_hashes[0..4]
-      five_sites.each do |site|
-        post :create, {:website => valid_attributes_from_site(site[:url])}, valid_session_from_user(user_creator.id)
-        
-        assigns(:website).should be_a(Website)
-        assigns(:website).should be_persisted
-        
-        # puts "x is a #{x.class}"
-        # puts "Y is a #{y.class}"
-        # puts "-- Website.count: #{Website.count}"
-        # puts "-- Website.maximum('id'): #{Website.maximum("id")}"
-        # puts "-- User.first.number_of_sites: #{user2.number_of_sites}"
-        final_user_num_of_sites += 1
-        temp_var += 1
-        user_creator.reload
-        user_creator.number_of_sites.should == final_user_num_of_sites
-        # puts "-----"
-      end
-      puts "user_creator.number_of_sites.should: #{user_creator.number_of_sites}"
-      # ---------------------------------------------
-      puts "Website.count before destroy: #{Website.count}"
-      final_user_num_of_sites = 0
-      five_sites = Website.find_all_by_user_id(user_creator.id)
-      
-      final_user_num_of_sites = five_sites.size
-      five_sites.each do |site|
-        delete :destroy, {:id => site.id}, valid_session_from_user(user_deleter.id)
-        final_user_num_of_sites -= 1
-        user_deleter.reload
-        # puts "-- after destroying: final_user_num_of_sites: #{final_user_num_of_sites}"
-        # puts "-- after destroying: user.number_of_sites: #{user.number_of_sites}"
-        # user.number_of_sites.should == final_user_num_of_sites
-      end
-      # user_creator.reload
-      # user_creator_sites = Website.find_all_by_user_id(user_creator.id).size
-      # puts "user_creator_sites: #{user_creator_sites}"
-      # puts "Website.count: #{Website.count}"
 
-
-=begin    
-      # now delete them
-      
-      final_user_num_of_sites = 0
-      five_sites = Website.find_all_by_user_id(user2.id)
-      final_user_num_of_sites = five_sites.size
-      # puts "at beginning: Website.find_all_by_user_id(user2.id).size: #{Website.find_all_by_user_id(user2.id).size}"
-      # puts "at beginning: final_user_num_of_sites: #{final_user_num_of_sites}"
-      five_sites.each do |site|
-        session[:user_id] = 0
-        delete :destroy, {:id => site.id}, valid_session_from_user(0)
-        # puts "in loop: Website.find_all_by_user_id(user2.id).size: #{Website.find_all_by_user_id(user2.id).size}"
-        # puts "in loop: final_user_num_of_sites: #{final_user_num_of_sites}"
-        # Website.find_all_by_user_id(user.id).size.should == final_user_num_of_sites
-        session[:user_id] = user2.id
-        delete :destroy, {:id => site.id}, valid_session_from_user(user2.id)
-        Website.find_all_by_user_id(user.id).size.should == (final_user_num_of_sites - 1)
-        
-        final_user_num_of_sites -= 1
-        user2.reload
-        # puts "-- after destroying: final_user_num_of_sites: #{final_user_num_of_sites}"
-        # puts "-- after destroying: user2.number_of_sites: #{user2.number_of_sites}"
-        user2.number_of_sites.should == final_user_num_of_sites
-      end
-=end
-    end
     
     it "again tries to prevent a user from deleting another user's website" do
       site_hashes = generate_website_hashes
