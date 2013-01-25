@@ -58,9 +58,13 @@ describe "Websites" do
       fill_in "Name", :with => "Hello"
       fill_in "Summary", :with => "unknown"
       click_button "Create Website"
+      puts "User.count: #{User.count}"
       response.body.should have_content('Website was successfully created.') 
       end_count = Website.count
       end_count.should == (begin_count + 1)
+    end
+
+    xit "only creates five websites" do
     end
 
   end

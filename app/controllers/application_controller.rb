@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
   helper_method :user_signed_in?
   helper_method :correct_user?
+  helper_method :can_user_add_site?
 
   private
     def current_user
@@ -34,6 +35,13 @@ class ApplicationController < ActionController::Base
     def authenticate_user!
       if !current_user
         redirect_to root_url, :alert => 'You need to sign in for access to this page.'
+      end
+    end
+
+    def can_user_add_site?
+      if current_user.number_of_sites == 5
+        puts "current_user.number_of_sites == 5"
+        redirect_to root_url, :alert => 'You can only create five sites.'
       end
     end
 

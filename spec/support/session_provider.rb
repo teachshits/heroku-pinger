@@ -16,7 +16,7 @@ include Capybara::RSpecMatchers
       'uid' => '12345',
       'provider' => 'twitter',
         'info' => {
-        'name' => 'Bob'
+        'name' => 'Jimmy C'
         }
       }
       @user = FactoryGirl.create(:user)
