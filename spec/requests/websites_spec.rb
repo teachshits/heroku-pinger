@@ -77,6 +77,24 @@ describe "Websites" do
       response.body.should have_content('New Website') 
     end
 
+    it "creates a new website" do
+      begin_count = Website.count
+      p = SessionProvider.get_session
+      visit "/websites/new"
+      fill_in "Url", :with => "http://www.hello.com"
+      fill_in "Name", :with => "Hello"
+      fill_in "Summary", :with => "unknown"
+      click_button "Create Website"
+      response.body.should have_content('Website was successfully created.') 
+      end_count = Website.count
+      # puts "begin_count: #{begin_count}"
+      # puts "end_count: #{end_count}"
+      end_count.should == (begin_count + 1)
+
+
+      
+    end
+
   end
 end
 
