@@ -3,27 +3,15 @@ require 'spec_helper'
 # get method: part of get method: ActionDispatch::Integration::Runner
 # response.class: ActionDispatch::TestResponse
 # session in other tests is session is a: ActionController::TestSession
+# puts "------ get method: #{self.method(:get).owner} "
+# puts "------ response.class: #{response.class}"
 
 describe "Websites" do
-
-# before do 
-  # request.env["devise.mapping"] = Devise.mappings[:user] 
-  # 
-# end
 
   let (:user) {
     FactoryGirl.create(:user2)
   }
-=begin
-  before (:each) do
-    # this works: 
-    user = FactoryGirl.create(:user2)
-    # this also works:
-    # @user = User.new( :provider => "twitter", :uid => "12345", :name => "the user")
-    user.save
-    
-  end
-=end
+
   def valid_attributes
     { :user_id => user.id,
       :url => "http://valid-url-0000.herokuapp.com/users/1/edit"
@@ -50,29 +38,14 @@ describe "Websites" do
     end
 
     it "should not contain link to make a new website" do
-      
-      # get websites_path
       visit "/websites"
-      # puts "------ get method: #{self.method(:get).owner} "
-      # puts "------ response.class: #{response.class}"
-      # puts "------ response.body: #{response.body}"
       response.body.should have_content('Listing websites')
       response.body.should_not have_content('New Website') 
     end
 
     it "should contain link to stuff" do
-      # not valid here for some reason
-      # session[:user_id] = user.id
       p = SessionProvider.get_session
-      # puts "p is a #{p.class}"
-      # puts "Inspecting the session: #{p.to_s}"
-      # puts "Here is user.id: #{user.id}"
       visit "/websites"
-      # get websites_path, {}, valid_session_from_user(user.id)
-      # get websites_path, {}, valid_session #_from_user(user.id)
-      # puts "------ get method: #{self.method(:get).owner} "
-      # puts "------ response.class: #{response.class}"
-      # puts "response.body: #{response.body}"
       response.body.should have_content('Listing websites')
       response.body.should have_content('New Website') 
     end
@@ -87,12 +60,7 @@ describe "Websites" do
       click_button "Create Website"
       response.body.should have_content('Website was successfully created.') 
       end_count = Website.count
-      # puts "begin_count: #{begin_count}"
-      # puts "end_count: #{end_count}"
       end_count.should == (begin_count + 1)
-
-
-      
     end
 
   end
